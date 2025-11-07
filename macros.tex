@@ -1,0 +1,53 @@
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.7em}
+\setlength{\headheight}{17.8264pt} 
+
+\usetikzlibrary{graphs, graphdrawing}
+\usetikzlibrary{trees}
+\newtheorem{definicao_interna}{Definição} 
+\newtheorem{teorema}{Teorema}[section]
+\pagestyle{fancy}
+\fancyhf{}
+
+% Margens da folha
+\geometry{
+    a4paper,
+    left=3cm,
+    right=3cm,
+    top=3cm,
+    bottom=3cm
+}
+
+% Informações de Cabeçalho e Rodapé
+\lhead{\includegraphics[height=0.4cm]{img/emap.png}} 
+\rhead{\textbf{Fundação Getúlio Vargas}}
+
+\lfoot{PIBIC 2025-2026}
+\rfoot{Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Ambientes de teoremas
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{proposition}{Proposição}
+\newtheorem{corollary}{Corolário}
+\newtheorem{lemma}{Lema}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercício}[section]
+\newtheorem{definition}{Definição}
+\newtheorem{example}{Exemplo}[section]
+\newtheorem{problem}{Problema}[section]
+
+%Redefinindo comandos 
+\DeclareMathOperator{\sen}{\sin} 
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\C}{\mathbb{C}}
+
+% Para correções
+\newcommand{\aqui}{\textcolor{red}{Corrigir}}
