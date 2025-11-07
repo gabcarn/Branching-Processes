@@ -1,16 +1,19 @@
+%---------------------------
+% PACOTES BÁSICOS
+%---------------------------
 \usepackage{graphicx} 
 \usepackage[brazil]{babel}
-\usepackage{amsthm}  % Pacote para definir ambientes de teorema e prova
-\usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage{amsfonts}
 \usepackage{multicol}
 \usepackage{xcolor} 
+\usepackage{xpatch}
+\usepackage{xparse}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{multirow}
 \usepackage{ragged2e}
-\usepackage{microtype}
+\usepackage[protrusion=false]{microtype}
 \usepackage{caption}
 \usepackage{adjustbox} % Para centralizar verticalmente
 \usepackage{chngcntr}
@@ -21,34 +24,31 @@
 \usepackage{algpseudocode}
 \usepackage{bm}
 \usepackage{lastpage}
-
+\usepackage{physics}
+\usepackage{bbold}
 \usepackage{booktabs}
-
 \usepackage[margin=3cm, a4paper]{geometry}
 \usepackage{lipsum}
-
 \usepackage[version=4]{mhchem} 
-\usepackage{physics} 
-
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage[nottoc]{tocbibind}
 \usepackage[shortlabels]{enumitem}
-
 \usepackage{fancyhdr}
 \usepackage{tcolorbox}
 \usepackage{minted}
-
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
-% Fontes
-
-% \usepackage{fontspec}
-%\setmainfont{Latin Modern Roman} % Secco
-% \renewcommand{\familydefault}{\sfdefault} %Sans Serif
-
-% Fonte Matemática
-\usepackage{eulervm}
+%---------------------------
+% PACOTES PARA FONTES (opcional)
+%---------------------------
+% Para XeLaTeX ou LuaLaTeX
+%\usepackage{fontspec}
+%\setmainfont{Latin Modern Roman}
+%\renewcommand{\familydefault}{\sfdefault} 
 %\usepackage{unicode-math}
 %\setmathfont{Euler Math}
+\usepackage[T1]{fontenc}  % codificação de fontes moderna
+\usepackage{textcomp}     % complementar símbolos
+\usepackage{eulervm} % Fonte matemática
