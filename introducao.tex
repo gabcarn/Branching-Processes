@@ -1,13 +1,28 @@
 \section{Introdução}
 
-Aqui será introduzido
+O estudo da dinâmica das populações foi frutífero para a matemática, como sabemos do estudo das equações diferenciais de Verhulst ou dos modelos clássicos de predador-presa, como o de Lotka-Volterra. Nesse trabalho, apresentamos uma teoria que também se originou no estudo da dinâmica populacional, mas que se baseia principalmente na modelagem da reprodução como sendo um processo estocástico: A teoria das Cadeias de Ramificação. Apesar de também ser estudada em outras aplicações, como as reações em cadeia de neutrons em usinas e bombas nucleares, nos na modelagem de populações.
 
-Considere 
+A ideia de utilizar um processo estocástico para estudar o crescimento populacional tem origem nos trabalhos de Francis Galton\footnote{Curiosidade: era também primo de Charles Darwin e foi o idealizador da Eugenia} e de Henry William Watson, que estavam interessados na possível extinção de sobrenomes de aristocratas no Reino Unido. Uma cadeia de ramificação, portanto, pode ser descrita da seguinte maneira:
 
-$X_n := \text{número de indivíduos no tempo } n$
+Um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada de forma que o tamanho de sua prole tem distribuição dada por $ \{p_k\}{k \in \mathbb{N}}$. Queremos modelar a quantidade de indivíduos em um dado tempo $t$, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante. Formalizando essa ideia, podemos definir a sequência de variáveis aleatórias $Z_n$ como o número de indivíduos da espécie no instante $n$, tomando sempre $Z_0 = 1$. Cada indivíduo se reproduz de maneira independente seguindo a mesma distribuição de prole $p$. Assim, se $X{n,i} \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração, temos que 
 
-cada célula $Z$ tem uma probabilidade de ter $k$ filhos denotada por $p_k$
+\[Z_n+1 = \sum_{i=1}^{Z_n} X_{n,i}\]
 
+Num certo sentido, uma cadeia de ramificação se difere de um passeio aleatório pelo fato de que: (i) os passos não são cumulativos; (ii) a distribuição dos passos depende da posição em que se encontra.
+
+Estabelecida a teoria básica, podemos nos fazer as seguintes perguntas típicas:
+
+\begin{itemize}
+	\item Qual a esperança e a variância de $Z_n$?;
+	\item É possível achar a distribuição de $Z_n$?;
+	\item É possível achar a probabilidade de extinção da cadeia? (ou seja, um instante $N$ no qual $Z_N = 0$);
+	\item É possível achar as condições para eventual extinção da cadeia?,
+	\item Se é certa a extinção, podemos achar a distribuição do tempo até ela?
+\end{itemize}
+
+Planejamos, nas seguintes seções, desenvolver a teoria necessária para tentar responder as perguntas acima.
+
+\subsection{
 Probabilidade de extinção
 
 \begin{exemplo}{}{}
