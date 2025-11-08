@@ -28,8 +28,15 @@ Tome $\textbf{p} \sim k \cdot \text{Bernoulli}(p)$, ou seja, cada indivíduo des
 No exemplo 1.1.1, algumas das perguntas feitas inicialmente são relativamente fáceis de responder:
 
 \begin{itemize}
-	\item O número esperado de filhos é $\mathbb{k\textbf{p}} = k \cdot p$
-	\item A esperança de $Z_n$ é
+	\item O número esperado de filhos é $k\textbf{p} = k \cdot p$;
+	\item A distribuição condicional de $Z_n$ dado $Z_{n-1}$ é $k$ vezes uma binomial de parâmetros $Z_n-1, \, p$, pois enésima geração é composta exatamente pela quantidade de filhos que cada um dos indivíduos da geração anterior teve, e a soma de Bernoullis resulta numa binomial. Esse é o melhor que conseguimos chegar com nossa ferramentas atuais, visto que a distribuição não condicional já é muito complicada de se descrever;
+	\item Pelo dito acima, temos que $\mathbb{E}(Z_n) = kp\mathbb{E}(Z_{n-1})$, logo, resolvendo a recorrência com a condição de contorno de que $\mathbb{E}(Z_1) = kp$, concluímos que $\mathbb{E}(Z_n) = (kp)^n$. Usando a lei da variância total, obtemos:
 
+		\[Var(Z_n) = \mathbb{E}(Var(Z_n | Z_{n-1})) + Var(\mathbb{E}(Z_n | Z_{n-1}))\]
+		\[Var(Z_n) =  \mathbb{E}(Z_{n-1}k^2p(1-p)) +k^2p^2Var(Z_{n-1})\]
+		\[Var(Z_n) = k^2p(1-p)(kp)^{n-1} + k^2p^2Var(Z_n-1)\]
 
+Usando a condição de contorno $Var(Z_1) = k^2p^2(1-p)^2$, obtemos que \[Var(Z_n) = k^{n+1}p^n(1-p)(1+(kp)+(kp)^2+ \dots + (kp)^{n-1})\]
 \end{itemize}
+
+Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas parece intuitivo dizer que há extinção se, e somente se, $\lim_{n \to \infty} \mathbb{E}(Z_n) = 0$, que ocorre, nesse caso, quando $kp<1$. Em particular, vemos que no caso acima a variância seria muito grande caso $kp \geq 1$ e muito pequena no caso contrário, o que nos leva a crer que o comportamento limite do contingente de indivíduos é ou explodir ao infinito ou chegar até a extinção.
