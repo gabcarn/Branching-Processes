@@ -2,12 +2,17 @@
 
 O estudo da dinâmica das populações é frutífero para a matemática, como sabemos do estudo das equações diferenciais de Verhulst ou dos modelos clássicos de predador-presa, como o de Lotka-Volterra. Nesse trabalho, apresentamos uma teoria que também se originou no estudo da dinâmica populacional, mas que se baseia principalmente na modelagem da reprodução como sendo um processo estocástico: A teoria das Cadeias de Ramificação.
 
-A ideia de utilizar um processo estocástico para estudar o crescimento populacional tem origem nos trabalhos de Francis Galton\footnote{Curiosidade: era também primo de Charles Darwin e foi o idealizador da eugenia} e de Henry William Watson, que estavam interessados na possível extinção de sobrenomes de aristocratas no Reino Unido. Uma cadeia de ramificação, portanto, pode ser descrita da seguinte maneira:
+\vspace{0.2cm}
 
-Um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada, com o vetor $\textbf{p} = (p_1,p_2 \dots,p_k,\dots)$ sendo a distribuição de probabilidade para o tamanho de sua prole. Queremos modelar a quantidade de indivíduos $Z_n$ na enésima geração, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante.
+A ideia de utilizar um processo estocástico para estudar o crescimento populacional tem origem nos trabalhos de Francis Galton\footnote{Curiosidade: era também primo de Charles Darwin e foi o idealizador da eugenia} e de Henry William Watson, que estavam interessados na possível extinção de sobrenomes de aristocratas no Reino Unido. Em vista disso, a teoria das cadeias de ramificação carrega muitas nomenclaturas inspiradas no momento inicial de seu desenvolvimento, como veremos.
+
+\vspace{0.2cm}
+
+Uma descrição simples para uma cadeia de ramificação é a seguinte: um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada, com o vetor $\textbf{p} = (p_1,p_2 \dots,p_k,\dots)$ sendo a distribuição de probabilidade para o tamanho de sua prole. Queremos modelar a quantidade de indivíduos $Z_n$ na enésima geração, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante.
+
+\vspace{0.2cm}
 
 Estabelecida a teoria básica, podemos nos fazer as seguintes perguntas típicas:
-
 \begin{itemize}
 	\item Qual o número esperado de filhos de cada indivíduo?
 	\item Qual a esperança e a variância de $Z_n$?;
@@ -28,8 +33,8 @@ Tome $\textbf{p} \sim k \cdot \text{Bernoulli}(p)$, ou seja, cada indivíduo des
 No exemplo 1.1.1, algumas das perguntas feitas inicialmente são relativamente fáceis de responder:
 
 \begin{itemize}
-	\item O número esperado de filhos é $k\textbf{p} = k \cdot p$;
-	\item A distribuição condicional de $Z_n$ dado $Z_{n-1}$ é $k$ vezes uma binomial de parâmetros $Z_n-1, \, p$, pois enésima geração é composta exatamente pela quantidade de filhos que cada um dos indivíduos da geração anterior teve, e a soma de Bernoullis resulta numa binomial. Esse é o melhor que conseguimos chegar com nossa ferramentas atuais, visto que a distribuição não condicional já é muito complicada de se descrever;
+	\item O número esperado de filhos é $k\mathbb{E}(\textbf{p}) = k \cdot p$;
+	\item A distribuição condicional de $Z_n$ dado $Z_{n-1}$ é $k$ vezes uma binomial de parâmetros $Z_{n-1}, \, p$, pois enésima geração é composta exatamente pela quantidade de filhos que cada um dos indivíduos da geração anterior teve, e a soma de Bernoullis resulta numa binomial. Esse é o melhor que conseguimos chegar com nossa ferramentas atuais, visto que a distribuição não condicional já é muito complicada de se descrever;
 	\item Pelo dito acima, temos que $\mathbb{E}(Z_n) = kp\mathbb{E}(Z_{n-1})$, logo, resolvendo a recorrência com a condição de contorno de que $\mathbb{E}(Z_1) = kp$, concluímos que $\mathbb{E}(Z_n) = (kp)^n$. Usando a lei da variância total, obtemos:
 
 		\[Var(Z_n) = \mathbb{E}(Var(Z_n | Z_{n-1})) + Var(\mathbb{E}(Z_n | Z_{n-1}))\]
@@ -39,4 +44,9 @@ No exemplo 1.1.1, algumas das perguntas feitas inicialmente são relativamente f
 Usando a condição de contorno $Var(Z_1) = k^2p^2(1-p)^2$, obtemos que \[Var(Z_n) = k^{n+1}p^n(1-p)(1+(kp)+(kp)^2+ \dots + (kp)^{n-1})\]
 \end{itemize}
 
-Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas parece intuitivo dizer que há extinção se, e somente se, $\lim_{n \to \infty} \mathbb{E}(Z_n) = 0$, que ocorre, nesse caso, quando $kp<1$. Em particular, vemos que no caso acima a variância seria muito grande caso $kp \geq 1$ e muito pequena no caso contrário, o que nos leva a crer que o comportamento limite do contingente de indivíduos é ou explodir ao infinito ou chegar até a extinção.
+\vspace{0.2cm}
+
+Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas parece intuitivo dizer que há extinção se, e somente se, $\lim_{n \to \infty} \mathbb{E}(Z_n) = 0$, que ocorre, nesse caso, quando $kp<1$.
+
+Porém, também parece válido afirmar que,pelo fato da variância seria muito grande caso $kp \geq 1$ e muito pequena no caso contrário, o que nos leva a crer que o comportamento limite do contingente de indivíduos é ou explodir ao infinito ou chegar até a extinção e que, portanto, a esperança de $Z_n$ pode nos dizer menos do que esperávamos.
+

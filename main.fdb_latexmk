@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1762576178.78388 "main.tex" "main.pdf" "main" 1762576180.28826 2
+["pdflatex"] 1762584153.18434 "main.tex" "main.pdf" "main" 1762584154.42696 2
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1742685315 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1742685315 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx0600.tfm" 1742685315 3584 ad9fcbc26a2a7bccd6d08b0a5792fbe0 ""
@@ -338,12 +338,12 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1755397953 2111642 3a809850171b3c9739c136c19a3c70f9 ""
   "cape.tex" 1762540043.29184 811 701ed5a10ea9ebe561059fe456af1f04 ""
   "img/logo.png" 1762540043.29225 5483 ab5f8879da6c82a32c0c8cc1136641e6 ""
-  "introducao.tex" 1762576178.06506 4068 8c6b4a9b789ef992a89323d5fabc358d ""
+  "introducao.tex" 1762584150.17604 4290 29f4bc9869fbf3c394dd062d39b96e26 ""
   "macros.tex" 1762547128.36073 5643 a8196b77d66d25d0220a387012887421 ""
-  "main.aux" 1762576180.18307 757 119866b6938334a5cba1ceb93801250d "pdflatex"
-  "main.out" 1762576180.18407 259 8756c634a574f4498aa68ebdca507795 "pdflatex"
+  "main.aux" 1762584154.32895 757 119866b6938334a5cba1ceb93801250d "pdflatex"
+  "main.out" 1762584154.32995 259 8756c634a574f4498aa68ebdca507795 "pdflatex"
   "main.tex" 1762547122.95836 162 08c2c82b4821a78c164aa44f2648fb01 ""
-  "main.toc" 1762576180.18407 183 59a5d955ad5eb1f1bcf44d4e271a7ace "pdflatex"
+  "main.toc" 1762584154.32995 183 59a5d955ad5eb1f1bcf44d4e271a7ace "pdflatex"
   "packages.tex" 1762547128.36073 1458 1f44f8f3c88bb4cb043af33086d2920e ""
   (generated)
   "main.aux"
