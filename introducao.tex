@@ -8,23 +8,23 @@ A ideia de utilizar um processo estocástico para estudar o crescimento populaci
 
 \vspace{0.2cm}
 
-Uma descrição simples para uma cadeia de ramificação é a seguinte: um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada, com o vetor $\textbf{p} = (p_1,p_2 \dots,p_k,\dots)$ sendo a distribuição de probabilidade para o tamanho de sua prole. Queremos modelar a quantidade de indivíduos $Z_n$ na enésima geração, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante.
+Uma descrição simples para uma cadeia de ramificação é a seguinte: um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada, com o vetor $\textbf{p} = (p_1,p_2 \dots,p_k,\dots)$ sendo a distribuição de probabilidade para o tamanho de sua prole. Queremos modelar a quantidade de indivíduos $Z_n$ na enésima geração, considerando que todos indivíduos de uma mesma geração se reproduzem de maneira independente de acordo com \textbf{p} e que começamos em $Z_0 = 1$.
 
 \vspace{0.2cm}
 
-Estabelecida a teoria básica, podemos nos fazer as seguintes perguntas típicas:
+Estabelecido essa concepção do modelo, surgem as seguintes perguntas acerca de seu comportamento:
 \begin{itemize}
 	\item Qual o número esperado de filhos de cada indivíduo?
 	\item Qual a esperança e a variância de $Z_n$?;
 	\item É possível achar a distribuição de $Z_n$?;
-	\item É possível achar a probabilidade de extinção da cadeia? (ou seja, um instante $N$ no qual $Z_N = 0$);
+	\item É possível achar a probabilidade de extinção da cadeia? (ou seja, a probabilidade de que haja um instante $N$ no qual $Z_N = 0$);
 	\item É possível achar as condições para eventual extinção da cadeia?,
 	\item Se é certa a extinção, podemos achar a distribuição do tempo até ela?
 \end{itemize}
 
-Planejamos, nas seguintes seções, desenvolver a teoria necessária para tentar responder as perguntas acima. Entretanto, vamos tentar aplicar os nossos conhecimentos já estabelecidos de probabilidade em alguns exemplos motivadores.
+Planejamos, nas seguintes seções, desenvolver a teoria necessária para tentar responder as perguntas acima. Entretanto, vamos tentar aplicar os nossos conhecimentos já estabelecidos de probabilidade em um exemplo motivador básico. 
 
-\subsection{Exemplos Motivadores}
+\subsection{Exemplo Motivador}
 
 \begin{exemplo}{}{}
 Tome $\textbf{p} \sim k \cdot \text{Bernoulli}(p)$, ou seja, cada indivíduo dessa espécie tem $k$ filhos com probabilidade $p$ ou não tem nenhum filho com probabilidade $1-p$.
@@ -46,7 +46,15 @@ Usando a condição de contorno $Var(Z_1) = k^2p^2(1-p)^2$, obtemos que \[Var(Z_
 
 \vspace{0.2cm}
 
-Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas parece intuitivo dizer que há extinção se, e somente se, $\lim_{n \to \infty} \mathbb{E}(Z_n) = 0$, que ocorre, nesse caso, quando $kp<1$.
+Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas o modelo do exemplo 1.1.1 já nos leva a interessantes reflexões: a extinção ou não dos indivíduos modelo parece depender apenas da distribuição da prole; a esperança e a variância de $Z_n$ parecem ter o mesmo comportamento assintótico, isto é, ambas convergem ou divergem quando o $n \to \infty$; combinando as duas afirmações anteriores com a desigualdade de Markov, obtemos que:
 
-Porém, também parece válido afirmar que,pelo fato da variância seria muito grande caso $kp \geq 1$ e muito pequena no caso contrário, o que nos leva a crer que o comportamento limite do contingente de indivíduos é ou explodir ao infinito ou chegar até a extinção e que, portanto, a esperança de $Z_n$ pode nos dizer menos do que esperávamos.
+\[\mathbb{P}(Z_n \geq 1) \leq \mathbb{E}(Z_n) = (kp)^n\]
+
+Ou seja, apesar da média de $Z_n$  não nos dá informação muito útil quando ela é maior do que 1, mas parece nos dizer que $Z_n$ converge em probabilidade para 0 quando é estritamente menor do que 1.
+
+Abaixo, estão os resultados da distribuição de $Z_20$ advindos de simulações implementadas no arquivo \verb|bernoulli.py|. 
+
+
+
+
 

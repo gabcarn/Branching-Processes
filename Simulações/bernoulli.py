@@ -20,8 +20,11 @@ def branching_bernoulli(populacao_atual, quantia_clones, geracoes, probabilidade
 
 tamanhos = []
 
-for i in range(500):
-    tamanhos.append(len(branching_bernoulli(2,4,50,0.4)))
+for i in range(300):
+    simulacao = branching_bernoulli(1,3,10,0.4)
+    print(f"{i} -> {simulacao}\n")
+    tamanhos.append(len(simulacao))
+
 
 plt.hist(tamanhos)
 plt.savefig('grafico.png')
