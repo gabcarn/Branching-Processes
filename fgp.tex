@@ -1,0 +1,41 @@
+\section{A Função Geradora de Probabilidade}
+
+Aqui nesta seção mostraremos uma ferramenta poderosa que nos ajuda a responder a maioria das perguntas vistas na introdução.
+
+\begin{exemplo}{}{}
+    Aqui selecionamos alguns exemplos mais bobinhos que ajudam a nossa intuição quando queremos trabalhar sobre probabibilidade de extinção da cadeia.
+    \begin{enumerate}
+        \item Se eu tenho uma população tal que $p_0 = 1$, então na próxima geração certamente ela irá se extinguir, isto é $X_t = 0 \,\, \forall t \geq 0$, e portanto, sua probabilidade de extinção é $1$.
+        \item Se eu te tenho uma população tal que $p_0 = \frac{1}{100}$ e $p_1 = \frac{99}{100}$, então, no longo prazo, ela irá se extinguir, isto é, existirá um tempo $t_0$ tal que $X_t = \,\, \forall t \geq t_0$. Daí, sua probabilidade de extinção também é $1$.
+        \item Caso seja uma população tal que $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$. $p_2 = \frac{1}{4}$, mostraremos também que a população irá se extinguir. 
+    \end{enumerate}
+\end{exemplo}
+
+Daí surge a pergunta natural, como estudar a probabibilidade de extinção em casos não-triviais? Usaremos a seguinte notação
+
+\[
+\Pp_e = \Pp(\text{Extinção}) = \Pp\left(\bigcup^{\infty}_{n=0} Z_n = 0\right) = \lim_{n \to \infty} \Pp(Z_n = 0) 
+\]
+
+
+\begin{definicao}{Função Geradora de Probabilidade}{}
+Considere $X$ uma variável aleatória, definiremos a \textbf{Função Geradora de Probabilidade} $\Pi_X: \R \to \R$ como sendo
+    \[
+    \Pi_X(S) = \E(S^X) = \sum_{x=0}^{\infty}\Pp(X=x)S^x
+    \]
+\end{definicao}
+
+Abaixo estão algumas propriedades da função geradora de probabibilidade que são de fácil verificação. Deixamos a cargo do leitor prová-las.
+
+\begin{enumerate}
+    \item $\Pi_X (0) = \Pp(X = 0)$
+    \item $\Pi_X'(S) =  \Pp(X = 1)$, de modo geral, $\Pi_X'(0) =  n!\cdot\Pp(X = n)$
+    \item $\Pi_X(1) = \sum_{x=0}^{\infty}\Pp(X=x) = 1$
+\end{enumerate}
+
+\begin{exemplo}{}{}
+    Considere a v.a. $X \sim Bernoulli(p)$, iremos calcular a F.G.P desta variável aleatória. 
+    \[
+    \Pi_X(S) = \E(S^X) = \Pp(X=0) + \Pp(X = 1)\cdot S = (1-p) + p\cdot S
+    \]
+\end{exemplo}
