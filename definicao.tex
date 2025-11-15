@@ -1,0 +1,133 @@
+\section{Processo de Ramificação}
+
+\begin{definicao}{Processo de Ramificação}{}
+Um \textbf{processo de ramificação} é definido da seguinte forma:
+
+\begin{itemize}
+    \item Um único indivíduo no instante $n = 0$.
+    \item Cada indivíduo vive exatamente uma unidade de tempo, depois produz $X$ descendentes e morre.
+    \item O número de descendentes $X$ assume valores $0, 1, 2, \ldots$, e a probabilidade de produzir $k$ descendentes é $\mathbb{P}(X = k) = p_k$.
+    \item Todos os indivíduos se reproduzem independentemente. Os indivíduos $1, 2, \ldots, n$ têm tamanhos de família $X_1, X_2, \ldots, X_n$, onde cada $X_i$ tem a mesma distribuição que $X$.
+    \item Seja $Z_n$ o \textit{número de indivíduos nascidos} no instante $n$, para $n = 0, 1, 2, \ldots$.
+    Interprete $Z_n$ como o \textit{``tamanho'' da geração $n$}.
+    \item Então o processo de ramificação é $\{Z_0, Z_1, Z_2, Z_3, \ldots\} = \{Z_n : n \in \mathbb{N}\}$.
+\end{itemize}
+\end{definicao}
+
+Outra maneira de analisar, é o que foi dado na introdução, isto é, se $X^{(n)}_i \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração, temos que 
+
+\[Z_{n+1} = \sum_{i=1}^{Z_n} X^{(n)}_i\]
+
+\begin{proposicao}{}{}
+Seja $Z_n$ o número de indivíduos na geração $n$, como definido acima, e $X$ o número de descendentes de um determinado indivíduo (lembre que $X \sim p$), então:
+    \[
+        \E(Z_n) = \E(X)^{n}
+    \]
+Isto é, o valor esperado de indivíduos na cadeia no tempo $n$ é o valor esperado do número de filhos que um indivíduo tenha na cadeia elevado a $n$.
+\end{proposicao}
+
+\begin{dem}
+    De fato, podemos simplesmente fazer as contas:
+
+    \[\E(Z_n) = \E\left(\sum_{i=1}^{Z_{n-1}} X_i^{(n)}\right) = \E\left(\E\left(\sum_{i=1}^{Z_{n-1}}X_i^{(n)}\,\middle|\, Z_{n-1}\right)\right) = \E(Z_{n-1} \cdot \E(X_i^{(n)}))  \]
+
+    \[ = \E(Z_{n-1}) \cdot \E(X) = \dots = \E(X)^{n} \cdot \E(Z_0) = \E(X)^{n}\]
+
+    Portanto, $\E(Z_n) = \E(X)^{n}$, como queríamos
+\end{dem}
+
+\begin{exemplo}{}{}
+    Considere uma cadeia de ramificação $(Z_n)$ com $p = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \dots)$, estudaremos alguma das perguntas vistas na introdução.
+
+\end{exemplo}
+
+\begin{itemize}
+    \item Qual a esperança e a variância de $Z_n$?
+
+    Observe que:
+
+    \[
+        \E(X) = \sum_{i=0}^{\infty} i \cdot \Pp(X = i) = \sum_{i=0}^{\infty} \dfrac{i}{2^{i+1}} 
+    \] 
+
+    E portanto, podemos escrever como 
+    \[
+    \begin{aligned}
+    \E(X) = 
+     \tfrac{1}{2} + \tfrac{1}{4} &+ \tfrac{1}{8} + \tfrac{1}{16} + \cdots \\[4pt]
+    + \tfrac{1}{4} &+ \tfrac{1}{8} + \tfrac{1}{16} + \cdots  \\[4pt]
+    &+  \tfrac{1}{8} + \tfrac{1}{16} + \cdots
+    \end{aligned}
+    \]
+    Logo, realizando a soma dessas progressões geométricas, temos $\E(X) = 1$, e também $\E(Z_n) = 1^n = 1$ para todo $n$.
+
+    \item Qual a probabibilidade de extinção da cadeia? 
+
+    É intuitivo imaginar que a probabilidade de extinção seja $1$, a probabilidade de ter $0$ filhos é muito maior que as demais probabilidades. Mas queremos ser capazes de fazer essas contas.
+\end{itemize}
+
+\begin{exemplo}{}{}
+    Aqui selecionamos alguns exemplos mais bobinhos que ajudam a nossa intuição quando queremos trabalhar sobre probabibilidade de extinção da cadeia.
+    \begin{enumerate}
+        \item Se eu tenho uma população tal que $p_0 = 1$, então na próxima geração certamente ela irá se extinguir, isto é $X_t = 0 \,\, \forall t \geq 1$, e portanto, sua probabilidade de extinção é $1$.
+        
+
+        \begin{tikzpicture}[
+            node distance=1.5cm,
+            ball/.style={circle, fill=gray, minimum size=5pt, inner sep=0pt},
+            label/.style={above=2pt}
+        ]
+
+        \node[ball] (n0) at (0,0) {};
+
+        % X vermelho no meio
+        \node[red] (x) [right=of n0] {\Large $\mathbf{\times}$};
+
+        % Labels
+        \node[label] at (n0.north) {$X_1^{(0)}$};
+
+        % Linha conectando
+        \draw (n0) -- (x);
+
+        \end{tikzpicture}
+            
+        \item Se eu te tenho uma população tal que $p_0 = \frac{1}{100}$ e $p_1 = \frac{99}{100}$, então, no longo prazo, ela irá se extinguir, isto é, existirá um tempo $t_0$ tal que $X_t = \,\, \forall t \geq t_0$. Daí, sua probabilidade de extinção também é $1$.
+        
+        \begin{tikzpicture}[
+            node distance=1.5cm,
+            ball/.style={circle, fill=gray, minimum size=5pt, inner sep=0pt},
+            label/.style={above=1pt}
+        ]
+
+        % Nós (bolinhas) em linha horizontal
+        \node[ball] (n0) at (0,0) {};
+        \node[ball] (n1) [right=of n0] {};
+        \node[ball] (n2) [right=of n1] {};
+        \node        (dots) [right=of n2] {$\cdots$};
+        \node        (end) [right=0.5cm of dots] {\textcolor{red}{\Large $\mathbf{\times}$}};
+
+
+        % Ligações
+        \draw (n0) -- (n1);
+        \draw (n1) -- (n2);
+        \draw (n2) -- (dots);
+
+        % Labels
+        \node[label] at (n0.north) {$X_1^{(0)}$};
+        \node[label] at (n1.north) {$X_1^{(1)}$};
+        \node[label] at (n2.north) {$X_1^{(2)}$};
+
+        \end{tikzpicture}
+
+        \item Caso seja uma população tal que $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$. $p_2 = \frac{1}{4}$, mostraremos também que a população irá se extinguir. 
+        
+    \end{enumerate}
+\end{exemplo}
+
+Daí surge a pergunta natural, como estudar a probabibilidade de extinção em casos não-triviais? Usaremos a seguinte notação
+
+\[
+p_e = \Pp(\text{Extinção}) = \Pp\left(\bigcup^{\infty}_{n=0} Z_n = 0\right) = \lim_{n \to \infty} \Pp(Z_n = 0) 
+\]
+
+Na seção seguinte, estudaremos uma ferramenta poderosa para lidar com probabilidades de extinção.
