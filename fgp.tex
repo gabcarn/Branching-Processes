@@ -1,51 +1,9 @@
 \section{A Função Geradora de Probabilidade}
 
-Aqui nesta seção mostraremos uma ferramenta poderosa que nos ajuda a responder a maioria das perguntas vistas na introdução.
-
-\begin{exemplo}{}{}
-    Aqui selecionamos alguns exemplos mais bobinhos que ajudam a nossa intuição quando queremos trabalhar sobre probabibilidade de extinção da cadeia.
-    \begin{enumerate}
-        \item Se eu tenho uma população tal que $p_0 = 1$, então na próxima geração certamente ela irá se extinguir, isto é $X_t = 0 \,\, \forall t \geq 0$, e portanto, sua probabilidade de extinção é $1$.
-        \item Se eu te tenho uma população tal que $p_0 = \frac{1}{100}$ e $p_1 = \frac{99}{100}$, então, no longo prazo, ela irá se extinguir, isto é, existirá um tempo $t_0$ tal que $X_t = \,\, \forall t \geq t_0$. Daí, sua probabilidade de extinção também é $1$.
-        \item Caso seja uma população tal que $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$. $p_2 = \frac{1}{4}$, mostraremos também que a população irá se extinguir. 
-    \end{enumerate}
-\end{exemplo}
-
-Daí surge a pergunta natural, como estudar a probabibilidade de extinção em casos não-triviais? Usaremos a seguinte notação
-
-\[
-\Pp_e = \Pp(\text{Extinção}) = \Pp\left(\bigcup^{\infty}_{n=0} Z_n = 0\right) = \lim_{n \to \infty} \Pp(Z_n = 0) 
-\]
-
-
-\begin{definicao}{Função Geradora de Probabilidade}{}
-Considere $X$ uma variável aleatória, definiremos a \textbf{Função Geradora de Probabilidade} $\Pi_X: \R \to \R$ como sendo
-    \[
-    \Pi_X(S) = \E(S^X) = \sum_{x=0}^{\infty}\Pp(X=x)S^x
-    \]
-\end{definicao}
-
-Abaixo estão algumas propriedades da função geradora de probabibilidade que são de fácil verificação. Deixamos a cargo do leitor prová-las.
-
-\begin{enumerate}
-    \item $\Pi_X (0) = \Pp(X = 0)$
-    \item $\Pi_X'(S) =  \Pp(X = 1)$, de modo geral, $\Pi_X'(0) =  n!\cdot\Pp(X = n)$
-    \item $\Pi_X(1) = \sum_{x=0}^{\infty}\Pp(X=x) = 1$
-\end{enumerate}
-
-\begin{exemplo}{}{}
-    Considere a v.a. $X \sim Bernoulli(p)$, iremos calcular a F.G.P desta variável aleatória. 
-    \[
-    \Pi_X(S) = \E(S^X) = \Pp(X=0) + \Pp(X = 1)\cdot S = (1-p) + p\cdot S
-    \]
-\end{exemplo}
-
-\section{Função Geradora de Probabilidade}
-
 A principal ferramenta analítica para estudar a evolução de processos 
 de ramificação é a Função Geradora de Probabilidade (FGP).
 
-\begin{definicao}[Função Geradora de Probabilidade]
+\begin{definicao}{Função Geradora de Probabilidade}{}
 Seja $X$ uma variável aleatória discreta que assume valores no 
 conjunto de inteiros não negativos $\{0, 1, 2, \dots\}$, com 
 função de massa de probabilidade $p_k = P(X=k)$.
@@ -69,14 +27,14 @@ para uma v.a. $X$ como $\Pi_X(s) = \E[s^X] = \sum_{k=0}^{\infty} p_k s^k$,
 onde $p_k = P(X=k)$, temos as seguintes propriedades fundamentais.
 
 % --- Propriedade 1 ---
-\begin{propriedade}[Probabilidade na origem]
+\begin{proposicao}{Probabilidade na origem}{}
 A FGP avaliada em $s=0$ retorna a probabilidade de $X$ ser zero.
 $$
     \Pi_X(0) = p_0 = P(X=0)
 $$
-\end{propriedade}
+\end{proposicao}
 
-\begin{prova}
+\begin{dem}
 A prova é obtida por substituição direta de $s=0$ na série de potências:
 $$
     \Pi_X(s) = p_0 + p_1 s + p_2 s^2 + \dots
@@ -84,18 +42,18 @@ $$
 $$
     \Pi_X(0) = p_0 + p_1(0) + p_2(0)^2 + \dots = p_0
 $$
-\end{prova}
+\end{dem}
 
 % --- Propriedade 2 ---
-\begin{propriedade}[Derivadas na origem]
+\begin{proposicao}{Derivadas na origem}{}
 A $n$-ésima derivada da FGP avaliada em $s=0$ permite recuperar 
 a $n$-ésima probabilidade $p_n$.
 $$
     \frac{d^n \Pi_X}{ds^n} \Bigg|_{s=0} = n! \cdot p_n \quad \implies \quad p_n = \frac{\Pi_X^{(n)}(0)}{n!}
 $$
-\end{propriedade}
+\end{proposicao}
 
-\begin{prova}
+\begin{dem}
 A FGP é, por definição, a série de Maclaurin (Taylor em $s=0$) 
 para $\Pi_X(s)$, cuja forma geral é $f(s) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} s^n$.
 Comparando os coeficientes da FGP, $\Pi_X(s) = \sum_{k=0}^{\infty} p_k s^k$, 
@@ -104,17 +62,17 @@ $$
     p_k = \frac{\Pi_X^{(k)}(0)}{k!}
 $$
 Rearranjando, obtemos $\Pi_X^{(k)}(0) = k! \cdot p_k$.
-\end{prova}
+\end{dem}
 
 % --- Propriedade 3 ---
-\begin{propriedade}[Soma das Probabilidades]
+\begin{proposicao}{Soma das Probabilidades}{}
 A FGP avaliada em $s=1$ é sempre igual a 1.
 $$
     \Pi_X(1) = 1
 $$
-\end{propriedade}
+\end{proposicao}
 
-\begin{prova}
+\begin{dem}
 Substituindo $s=1$ na definição da FGP:
 $$
     \Pi_X(1) = \sum_{k=0}^{\infty} p_k (1)^k = \sum_{k=0}^{\infty} p_k
@@ -124,7 +82,14 @@ $p_k$ para uma variável aleatória discreta deve ser 1.
 $$
     \Pi_X(1) = 1
 $$
-\end{prova}
+\end{dem}
+
+\begin{exemplo}{}{}
+    Considere a v.a. $X \sim Bernoulli(p)$, iremos calcular a F.G.P desta variável aleatória. 
+    \[
+    \Pi_X(S) = \E(S^X) = \Pp(X=0) + \Pp(X = 1)\cdot S = (1-p) + p\cdot S
+    \]
+\end{exemplo}
 
 \subsection{Utilidade da FGP com processos de ramificação}
 
@@ -142,7 +107,7 @@ composição de funções:
 
 % --- Início da Prova ---
 
-\begin{prova}
+\begin{dem}
 Seja $Z_n$ o número de indivíduos na geração $n$. O número de 
 indivíduos na geração $n+1$ é a soma dos descendentes de 
 todos os $Z_n$ indivíduos:
@@ -185,7 +150,7 @@ Concluímos assim que:
 $$
     \Pi_{Z_{n+1}}(s) = \Pi_{Z_n}(\Pi_X(s))
 $$
-\end{prova}
+\end{dem}
 
 \subsubsection{FGP e a probabilidade de extinção}
 
@@ -200,15 +165,15 @@ obtida analisando o limite deste valor à medida que $n$
 cresce, levando a um resultado de ponto fixo.
 
 % --- Resultado 2.1 ---
-\begin{resultado}
+\begin{teorema}{}{}
 A probabilidade de extinção $p_e$ é o limite da 
 probabilidade de extinção na $n$-ésima geração.
 $$
     p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)
 $$
-\end{resultado}
+\end{teorema}
 
-\begin{prova}
+\begin{dem}
 Seja $E_n$ o evento $\{Z_n = 0\}$, que significa que a 
 população está extinta na geração $n$. 
 A probabilidade deste evento é $P(E_n) = P(Z_n=0)$. 
@@ -234,19 +199,19 @@ Substituindo $P(E_n) = \Pi_{Z_n}(0)$, concluímos que:
 $$
     p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)
 $$
-\end{prova}
+\end{dem}
 
 % --- Resultado 2.2 ---
-\begin{resultado}[Recorrência da Extinção]
+\begin{teorema}{Recorrência da Extinção}{}
 Assumindo que o processo inicia com um único ancestral ($Z_0 = 1$), 
 a probabilidade de extinção na geração $n+1$ se relaciona 
 com a da geração $n$ através da FGP da prole, $\Pi_X(s)$.
 $$
     \Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))
 $$
-\end{resultado}
+\end{teorema}
 
-\begin{prova}
+\begin{dem}
 Vamos denotar $q_n = P(Z_n=0) = \Pi_{Z_n}(0)$. Queremos provar 
 que $q_{n+1} = \Pi_X(q_n)$.
 
@@ -280,17 +245,17 @@ Substituindo a notação $q_n$ de volta, temos:
 $$
     \Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))
 $$
-\end{prova}
+\end{dem}
 
 % --- Resultado 2.3 ---
-\begin{resultado}[Ponto Fixo da Extinção]
+\begin{teorema}{Ponto Fixo da Extinção}{}
 A probabilidade de extinção $p_e$ é um ponto fixo da FGP da prole.
 $$
     p_e = \Pi_X(p_e)
 $$
-\end{resultado}
+\end{teorema}
 
-\begin{prova}
+\begin{dem}
 Dos resultados anteriores, temos:
 \begin{enumerate}
     \item $p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)$
@@ -323,7 +288,43 @@ $$
 $$
 Isso mostra que $p_e$ deve ser uma solução de ponto fixo 
 para a equação $s = \Pi_X(s)$.
-\end{prova}
+\end{dem}
+
+\begin{exemplo}{}{}
+    Voltando ao exemplo da cadeia de ramificação $(Z_n)$ com $p = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \dots)$, qual a probabilidade de extinção da cadeia?
+\end{exemplo}
+
+\begin{sol}
+    Queremos encontrar o ponto fíxo $p_e = \Pi_X(p_e)$. Observe que:
+
+    \[
+    \Pi_X(s) = \sum_{x=0}^{\infty}\Pp(X=x)s^x = \sum_{x=0}^{\infty} \frac{s^x}{2^{i+1}} = \frac{1}{2} + \frac{s}{4} + \frac{s^2}{8} + \dots
+    \]
+
+    Que é uma P.G infinita com razão $s/2$, como $p_e \leq 1$, temos que
+
+    \[
+    \Pi_X(p_e) = \frac{1}{2-p_e}
+    \]
+
+    Resolvendo $\Pi_X(p_e) = p_e$, obtemos $(p_e - 1)^2 = 0$, e portanto $p_e = 1$.
+\end{sol}
+
+\begin{exemplo}{}{}
+    Voltando ao exemplo da cadeia de ramificação $(Z_n)$ com  $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$, $p_2 = \frac{1}{4}$ e $p_i = 0 \quad \forall i\geq 3$, qual a probabilidade de extinção da cadeia? 
+\end{exemplo}
+
+\begin{sol}
+    Novamente, buscamos encontrar o ponto fixo $p_e = \Pi_X(p_e)$. Temos:
+
+    \[
+    \Pi_X(s)=\sum_{x=0}^\infty \Pp(X=x)s^x 
+    = \tfrac{1}{4} + \tfrac{1}{2}s + \tfrac{1}{4}s^2.
+    \]
+
+    Fazendo $ \Pi_X(p_e) = p_e$, obtemos, novamente, $(p_e-1)^2 = 0$, e portanto, $p_e = 1$.
+
+\end{sol}
 
 \subsubsection{Análise Gráfica e Condições de Extinção}
 
@@ -338,15 +339,15 @@ sua derivada em $s=1$ com a média (valor esperado) da
 distribuição da prole, $\mu = \E[X]$.
 
 % --- Propriedade da Média ---
-\begin{propriedade}[Média da Prole]
+\begin{proposicao}{Média da Prole}{}
 A derivada da FGP da prole, avaliada em $s=1$, é igual ao 
 número esperado de descendentes, $\mu$.
 $$ 
     \Pi_X'(1) = \E[X] 
 $$
-\end{propriedade}
+\end{proposicao}
 
-\begin{prova}
+\begin{dem}
 Derivamos a série de potências da FGP, $\Pi_X(s) = \sum_{k=0}^{\infty} p_k s^k$, 
 termo a termo em relação a $s$:
 $$ 
@@ -358,7 +359,7 @@ $$
 $$
 Esta última soma é, por definição, o valor esperado $\E[X]$ da 
 variável aleatória $X$.
-\end{prova}
+\end{dem}
 
 % --- Análise Gráfica ---
 A inclinação da curva $\Pi_X(s)$ no ponto $(1, 1)$ é exatamente 
@@ -434,7 +435,7 @@ Isso nos leva a três casos, como ilustrado na Figura \ref{fig:fgp_extincao}:
     \node[right, align=left, color=blue] at (axis cs:1.05, 1.1) {$\Pi_X'(1) = \mu > 1$};
 
     % Label para p_0 no eixo Y
-    \node[left, color=red] at (axis cs:0, 0.2) {$p_0$};
+    % \node[left, color=red] at (axis cs:0, 0.2) {$p_0$};
 
     \end{axis}
     \end{tikzpicture}
@@ -445,14 +446,30 @@ Isso nos leva a três casos, como ilustrado na Figura \ref{fig:fgp_extincao}:
 % --- O Teorema Final ---
 Isso leva ao teorema fundamental sobre as condições de extinção.
 
-\begin{resultado}[Condição para Extinção Certa]
+\begin{teorema}{Condição para Extinção Certa}{}
 Seja $\mu = \E[X]$ o número esperado de descendentes por indivíduo.
 \begin{itemize}
     \item Se $\mu \le 1$, a probabilidade de extinção é $p_e = 1$ (assumindo $P(X=1) \neq 1$, o caso trivial).
     \item Se $\mu > 1$, a probabilidade de extinção $p_e$ é a única solução no intervalo $[0, 1)$ para a equação $s = \Pi_X(s)$.
 \end{itemize}
-\end{resultado}
+\end{teorema}
 
+\begin{exemplo}{}{}
+    Considere uma cadeia de ramificação $(Z_n)$ com  $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{4}$, $p_2 = \frac{1}{2}$ e $p_i = 0 \quad \forall i\geq 3$, qual a probabilidade de extinção da cadeia? 
+\end{exemplo}
+
+\begin{sol}
+    Observe que $\mu = \E[X] = \frac{1}{4} + \frac{1}{2} = \frac{5}{4} > 1$. Portanto, já sabemos que a probabibilidade de extinção não é $1$. Podemos calcula-la buscando o ponto fixo $p_e = \Pi_X(p_e)$. Temos:
+
+    \[
+    \Pi_X(s)=\sum_{x=0}^\infty \Pp(X=x)s^x 
+    = \tfrac{1}{4} + \tfrac{1}{4}s + \tfrac{1}{2}s^2.
+    \]
+
+    Fazendo $ \Pi_X(p_e) = p_e$, obtemos, a equação quadrática $2p_e^2 - 3p_e + 1 = 0$, cuja a única raíz não-negativa menor que $1$ é $p_e = \frac{1}{2}$.
+
+
+\end{sol}
 
 
 \subsubsection{Valor Esperado de um processo de ramificação}
@@ -463,16 +480,16 @@ geração $t$, que denotaremos por $\mu_t = \E[Z_t]$. O resultado
 mostra uma progressão geométrica simples, governada pela 
 média da prole, $\mu = \E[X]$.
 
-\begin{resultado}
+\begin{teorema}{}{}
 Seja $\mu = \E[X]$ a média da prole de um único indivíduo e 
 assumindo que o processo começa com um único ancestral ($Z_0 = 1$), 
 o valor esperado da população na $t$-ésima geração é:
 $$
     \mu_t = \E[Z_t] = \mu^t
 $$
-\end{resultado}
+\end{teorema}
 
-\begin{prova}
+\begin{dem}
 Para provar este resultado, utilizamos duas propriedades da FGP 
 estabelecidas anteriormente:
 \begin{enumerate}
@@ -518,7 +535,7 @@ a recorrência:
     \item \dots
     \item $\mu_t = \mu^t$
 \end{itemize}
-\end{prova}
+\end{dem}
 
 Este resultado confirma a intuição da análise de extinção: se 
 $\mu < 1$, o tamanho esperado da população decai geometricamente 
@@ -526,4 +543,3 @@ para zero. Se $\mu > 1$, o tamanho esperado da população cresce
 exponencialmente. Se $\mu = 1$, o tamanho esperado da população 
 permanece constante em 1.
 
-\end{document}
