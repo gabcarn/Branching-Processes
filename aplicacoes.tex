@@ -62,6 +62,69 @@ então
 provido do fato de que $\lim_{s \to 0)\Pi_{X}(s) = 0$, podemos resolver a equação, encontrando
 
 \[
-\Pi_{X}(s) = \frac{1}{2ps} - \sqrt{\frac{1 - 4ps^2(1-p)}{4p^2s^2}}
+\Pi_{X}(s) = \frac{1}{2ps} - \sqrt{\frac{1 - 4ps^2(1-p)}{4p^2s^2}} = \frac{1}{2ps}(1- \sqrt{1- 4ps^2(1 - p)})
+\].
+
+Queremos agora encontrar uma expansão em série de potências para $\Pi_X$. Usando a Fórmula de Newton, temos o
+seguinte resultado.
+
+\begin{lemma}{título}{não sei}
+    
+Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
+$x \in (-1,1)$,
+
+\[
+\sum_{n = 1}^{\infty} c_nx^n = - \sum_{n = 1}^{\infty}\binom{1/2}{n}(-x)^n = 
+-(\sum_{n=0}^{\infty}\binom{1/2}{n}(-x)^n-1) = 1 - \sqrt{1-x}
+\].
+
+\end{lemma}
+
+Voltando para o problema, usando $x = 4ps^2(1-p)$ e $c_n$ como no Lema acima, temos:
+
+\[
+\Pi_{X}(s) = \frac{1}{2ps}\sum_{n=1}^{\infty}c_n(4p(1-p)s^2)^n = \sum_{n=1}^{\infty}\frac{(2n-2)!}{n!(n-1)!}p^{n-1}(1-p)^na^{2n-1}
 \]
 
+Temos assim uma expansão em série de potências para $g(s), s \in (-1,1)$, o que nos fornece a distribuição de $X$. Para $n \geq 1$,
+
+\[
+P(X = 2n -1 | Z_0 = 1) = \frac{(2n-2)!}{n!(n-1)}p^{n-1}(1-p)^n.
+\]
+
+Voltando agora ao problema inicial, sejam $M$ o evento de que a mutação aparece na populaçãop e $M^c$ o complemento de $M$.
+Se $X$ é infinito, então a probabilidade da população contrair a mutação é sempre 1, logo estamos interessados nos casos em que 
+a população é extinta em algum momento. A probabilidade de que a mutação nunca apareça é:
+
+\[
+P(M^c) = P(M^c, X < \infty) = \sum_{k = 1}^{\infty} P(M^c | X = k)P(X = k) = \sum_{k = 1}^{\infty}(1 - \gamma)^{k-1}P(X = k)
+\].
+
+Porém sabemos que 
+\[ 
+P(x = 2n -1 | Z_0 = 1 ) = \frac{(2n - 2)!}{k!(n-1)!}p^{n-1}(1-p)^n
+\],
+
+logo:
+
+\[
+P(M^c) = \sum_{k = 1}^{\infty}(1 - \gamma )^{2k -2}\frac{(2k-2)}{k!(k-1)!}p^{k-1}(1-p)^k
+\].
+
+Reorganizando os termos,
+
+\[
+P(M^c) = \frac{1}{2p(1 - \gamma)^2}\sum_{k = 1}^{\infty}\frac{(2k-2)!}{k!(k-1)!2^{2k -1}}(2^2(1-\gamma)^2(1-p)p)^k
+\],
+
+Assim, pelo Lema já apresentado,
+
+\[
+P(M^c) = \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2})
+\].
+
+Finalmente,
+
+\[
+P(M) = 1 -  \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2})
+\].
