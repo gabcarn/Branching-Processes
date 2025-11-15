@@ -39,3 +39,491 @@ Abaixo estão algumas propriedades da função geradora de probabibilidade que s
     \Pi_X(S) = \E(S^X) = \Pp(X=0) + \Pp(X = 1)\cdot S = (1-p) + p\cdot S
     \]
 \end{exemplo}
+
+\section{Função Geradora de Probabilidade}
+
+A principal ferramenta analítica para estudar a evolução de processos 
+de ramificação é a Função Geradora de Probabilidade (FGP).
+
+\begin{definicao}[Função Geradora de Probabilidade]
+Seja $X$ uma variável aleatória discreta que assume valores no 
+conjunto de inteiros não negativos $\{0, 1, 2, \dots\}$, com 
+função de massa de probabilidade $p_k = P(X=k)$.
+
+A \textbf{Função Geradora de Probabilidade} de $X$, denotada 
+por $\Pi_X(s)$, é a série de potências definida por:
+\begin{equation}
+    \Pi_X(s) = \sum_{k=0}^{\infty} P(X=k) s^k = \sum_{k=0}^{\infty} p_k s^k
+\end{equation}
+Equivalentemente, a FGP pode ser expressa como o valor esperado:
+\begin{equation}
+    \Pi_X(s) = \E[s^X]
+\end{equation}
+Esta série converge absolutamente para $|s| \le 1$.
+\end{definicao}
+
+\subsection{Propriedades da FGP}
+
+Assumindo a definição da Função Geradora de Probabilidade (FGP) 
+para uma v.a. $X$ como $\Pi_X(s) = \E[s^X] = \sum_{k=0}^{\infty} p_k s^k$, 
+onde $p_k = P(X=k)$, temos as seguintes propriedades fundamentais.
+
+% --- Propriedade 1 ---
+\begin{propriedade}[Probabilidade na origem]
+A FGP avaliada em $s=0$ retorna a probabilidade de $X$ ser zero.
+$$
+    \Pi_X(0) = p_0 = P(X=0)
+$$
+\end{propriedade}
+
+\begin{prova}
+A prova é obtida por substituição direta de $s=0$ na série de potências:
+$$
+    \Pi_X(s) = p_0 + p_1 s + p_2 s^2 + \dots
+$$
+$$
+    \Pi_X(0) = p_0 + p_1(0) + p_2(0)^2 + \dots = p_0
+$$
+\end{prova}
+
+% --- Propriedade 2 ---
+\begin{propriedade}[Derivadas na origem]
+A $n$-ésima derivada da FGP avaliada em $s=0$ permite recuperar 
+a $n$-ésima probabilidade $p_n$.
+$$
+    \frac{d^n \Pi_X}{ds^n} \Bigg|_{s=0} = n! \cdot p_n \quad \implies \quad p_n = \frac{\Pi_X^{(n)}(0)}{n!}
+$$
+\end{propriedade}
+
+\begin{prova}
+A FGP é, por definição, a série de Maclaurin (Taylor em $s=0$) 
+para $\Pi_X(s)$, cuja forma geral é $f(s) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} s^n$.
+Comparando os coeficientes da FGP, $\Pi_X(s) = \sum_{k=0}^{\infty} p_k s^k$, 
+com a forma de Maclaurin, identificamos termo a termo que:
+$$
+    p_k = \frac{\Pi_X^{(k)}(0)}{k!}
+$$
+Rearranjando, obtemos $\Pi_X^{(k)}(0) = k! \cdot p_k$.
+\end{prova}
+
+% --- Propriedade 3 ---
+\begin{propriedade}[Soma das Probabilidades]
+A FGP avaliada em $s=1$ é sempre igual a 1.
+$$
+    \Pi_X(1) = 1
+$$
+\end{propriedade}
+
+\begin{prova}
+Substituindo $s=1$ na definição da FGP:
+$$
+    \Pi_X(1) = \sum_{k=0}^{\infty} p_k (1)^k = \sum_{k=0}^{\infty} p_k
+$$
+Pela definição de probabilidade, a soma de todas as probabilidades 
+$p_k$ para uma variável aleatória discreta deve ser 1.
+$$
+    \Pi_X(1) = 1
+$$
+\end{prova}
+
+\subsection{Utilidade da FGP com processos de ramificação}
+
+A utilidade da FGP em processos de ramificação decorre da forma 
+como ela lida com somas de variáveis aleatórias. Seja $Z_n$ o 
+tamanho da população na $n$-ésima geração, com FGP 
+$\Pi_{Z_n}(s) = \E[s^{Z_n}]$. Seja $X$ a variável aleatória da prole 
+de um único indivíduo, com FGP $\Pi_X(s) = \E[s^X]$.
+
+A relação fundamental entre as gerações é dada pela 
+composição de funções:
+\begin{equation}
+    \Pi_{Z_{n+1}}(s) = \Pi_{Z_n}(\Pi_X(s))
+\end{equation}
+
+% --- Início da Prova ---
+
+\begin{prova}
+Seja $Z_n$ o número de indivíduos na geração $n$. O número de 
+indivíduos na geração $n+1$ é a soma dos descendentes de 
+todos os $Z_n$ indivíduos:
+$$
+    Z_{n+1} = \sum_{i=1}^{Z_n} X_i
+$$
+Onde $X_i$ é uma variável aleatória que representa o número 
+de descendentes do $i$-ésimo indivíduo da geração $n$. 
+Assumimos que todos os $X_i$ são independentes e identicamente 
+distribuídos (i.i.d.) com a mesma FGP da prole, $\Pi_X(s) = \E[s^X]$.
+
+Pela definição da FGP para $Z_{n+1}$:
+$$
+    \Pi_{Z_{n+1}}(s) = \E[s^{Z_{n+1}}] = \E\left[ s^{\sum_{i=1}^{Z_n} X_i} \right]
+$$
+Usando a Lei da Expectativa Total (condicionando no valor de $Z_n$):
+$$
+    \Pi_{Z_{n+1}}(s) = \E\left[ \E\left[ s^{\sum_{i=1}^{Z_n} X_i} \Big| Z_n \right] \right]
+$$
+Dado que $Z_n = k$, a expectativa interna se torna a FGP de uma soma de $k$ variáveis i.i.d.:
+$$
+    \E\left[ s^{\sum_{i=1}^{k} X_i} \Big| Z_n = k \right] = \E\left[ s^{X_1} \cdot s^{X_2} \cdots s^{X_k} \right]
+$$
+Pela independência dos $X_i$, isto é:
+$$
+    \E[s^{X_1}] \cdot \E[s^{X_2}] \cdots \E[s^{X_k}] = (\Pi_X(s))^k
+$$
+Portanto, a expectativa interna é $(\Pi_X(s))^{Z_n}$. 
+Substituindo de volta na expressão principal:
+$$
+    \Pi_{Z_{n+1}}(s) = \E\left[ (\Pi_X(s))^{Z_n} \right]
+$$
+Reconhecemos esta forma. A FGP da geração $n$ é 
+$\Pi_{Z_n}(s) = \E[s^{Z_n}]$. 
+Se substituirmos o argumento $s$ por $\Pi_X(s)$, temos:
+$$
+    \Pi_{Z_n}(\Pi_X(s)) = \E\left[ (\Pi_X(s))^{Z_n} \right]
+$$
+Concluímos assim que:
+$$
+    \Pi_{Z_{n+1}}(s) = \Pi_{Z_n}(\Pi_X(s))
+$$
+\end{prova}
+
+\subsubsection{FGP e a probabilidade de extinção}
+
+A Função Geradora de Probabilidade é a ferramenta analítica 
+central para calcular a probabilidade de extinção, $p_e$. A 
+relação fundamental vem da Propriedade 1 (que provamos 
+anteriormente): a FGP de uma geração $Z_n$, avaliada em $s=0$, 
+nos dá a probabilidade $\Pi_{Z_n}(0) = P(Z_n=0)$, ou seja, 
+a probabilidade de a população estar extinta na $n$-ésima 
+geração. A probabilidade de extinção eventual, $p_e$, é 
+obtida analisando o limite deste valor à medida que $n$ 
+cresce, levando a um resultado de ponto fixo.
+
+% --- Resultado 2.1 ---
+\begin{resultado}
+A probabilidade de extinção $p_e$ é o limite da 
+probabilidade de extinção na $n$-ésima geração.
+$$
+    p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)
+$$
+\end{resultado}
+
+\begin{prova}
+Seja $E_n$ o evento $\{Z_n = 0\}$, que significa que a 
+população está extinta na geração $n$. 
+A probabilidade deste evento é $P(E_n) = P(Z_n=0)$. 
+Pela Propriedade 1 da FGP (provada anteriormente), 
+temos $P(Z_n=0) = \Pi_{Z_n}(0)$.
+
+Se a população está extinta em $E_n$ (zero indivíduos), 
+ela certamente estará extinta em $E_{n+1}$ (pois não há 
+pais para gerar filhos). Portanto, $E_n \subseteq E_{n+1}$. 
+Temos uma sequência crescente de eventos.
+
+A probabilidade de extinção eventual, $p_e$, é a 
+probabilidade da união de todos esses eventos:
+$$
+    p_e = P\left( \bigcup_{n=1}^{\infty} E_n \right)
+$$
+Pela continuidade da probabilidade para uniões crescentes 
+de eventos, o limite da probabilidade é a probabilidade do limite:
+$$
+    p_e = \lim_{n \to \infty} P(E_n)
+$$
+Substituindo $P(E_n) = \Pi_{Z_n}(0)$, concluímos que:
+$$
+    p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)
+$$
+\end{prova}
+
+% --- Resultado 2.2 ---
+\begin{resultado}[Recorrência da Extinção]
+Assumindo que o processo inicia com um único ancestral ($Z_0 = 1$), 
+a probabilidade de extinção na geração $n+1$ se relaciona 
+com a da geração $n$ através da FGP da prole, $\Pi_X(s)$.
+$$
+    \Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))
+$$
+\end{resultado}
+
+\begin{prova}
+Vamos denotar $q_n = P(Z_n=0) = \Pi_{Z_n}(0)$. Queremos provar 
+que $q_{n+1} = \Pi_X(q_n)$.
+
+$q_{n+1} = P(Z_{n+1} = 0)$. Usamos a Lei da Probabilidade Total, 
+condicionando no número de filhos do ancestral original 
+(geração $Z_1$, que tem a mesma distribuição de $X$):
+$$
+    q_{n+1} = \sum_{k=0}^{\infty} P(Z_{n+1} = 0 \mid Z_1 = k) \cdot P(Z_1 = k)
+$$
+Se $Z_1 = k$, o processo se divide em $k$ processos 
+de ramificação independentes, cada um começando com um 
+indivíduo. Para $Z_{n+1}$ ser 0, todas essas $k$ 
+linhagens devem se extinguir nas $n$ gerações seguintes. 
+A probabilidade de \textbf{uma} dessas linhagens se extinguir 
+nas $n$ gerações seguintes é $P(Z_n=0) = q_n$.
+Como são independentes, a probabilidade de todas as $k$ se 
+extinguirem é $(q_n)^k$.
+$$
+    P(Z_{n+1} = 0 \mid Z_1 = k) = (q_n)^k
+$$
+Seja $p_k = P(Z_1=k) = P(X=k)$. Substituindo na soma:
+$$
+    q_{n+1} = \sum_{k=0}^{\infty} (q_n)^k \cdot p_k
+$$
+Reconhecemos esta soma como a definição da FGP da prole, $\Pi_X(s)$, 
+avaliada no ponto $s = q_n$:
+$$
+    q_{n+1} = \Pi_X(q_n)
+$$
+Substituindo a notação $q_n$ de volta, temos:
+$$
+    \Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))
+$$
+\end{prova}
+
+% --- Resultado 2.3 ---
+\begin{resultado}[Ponto Fixo da Extinção]
+A probabilidade de extinção $p_e$ é um ponto fixo da FGP da prole.
+$$
+    p_e = \Pi_X(p_e)
+$$
+\end{resultado}
+
+\begin{prova}
+Dos resultados anteriores, temos:
+\begin{enumerate}
+    \item $p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)$
+    \item $\Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))$
+\end{enumerate}
+
+
+Vamos aplicar o limite $n \to \infty$ em ambos os lados da 
+Equação (2):
+$$
+    \lim_{n \to \infty} \Pi_{Z_{n+1}}(0) = \lim_{n \to \infty} \Pi_X(\Pi_{Z_n}(0))
+$$
+Pelo Resultado (1), o lado esquerdo é $p_e$ (pois se $n \to \infty$, 
+$n+1 \to \infty$):
+$$
+    p_e = \lim_{n \to \infty} \Pi_X(\Pi_{Z_n}(0))
+$$
+Uma Função Geradora de Probabilidade $\Pi_X(s)$ é uma série 
+de potências e, portanto, é uma função contínua em seu 
+intervalo de convergência (pelo menos para $|s| \le 1$). 
+Como $q_n = \Pi_{Z_n}(0)$ é uma probabilidade, $0 \le q_n \le 1$.
+Devido à continuidade da função $\Pi_X(s)$, podemos 
+trocar a ordem do limite e da função:
+$$
+    p_e = \Pi_X\left( \lim_{n \to \infty} \Pi_{Z_n}(0) \right)
+$$
+Usando o Resultado (1) novamente no argumento da função:
+$$
+    p_e = \Pi_X(p_e)
+$$
+Isso mostra que $p_e$ deve ser uma solução de ponto fixo 
+para a equação $s = \Pi_X(s)$.
+\end{prova}
+
+\subsubsection{Análise Gráfica e Condições de Extinção}
+
+Provamos que a probabilidade de extinção, $p_e$, deve satisfazer 
+a equação de ponto fixo $p_e = \Pi_X(p_e)$. As soluções para 
+esta equação podem ser encontradas graficamente, identificando 
+as interseções das curvas $y = s$ e $y = \Pi_X(s)$ no 
+intervalo $s \in [0, 1]$.
+
+A análise depende de uma nova propriedade da FGP, que relaciona 
+sua derivada em $s=1$ com a média (valor esperado) da 
+distribuição da prole, $\mu = \E[X]$.
+
+% --- Propriedade da Média ---
+\begin{propriedade}[Média da Prole]
+A derivada da FGP da prole, avaliada em $s=1$, é igual ao 
+número esperado de descendentes, $\mu$.
+$$ 
+    \Pi_X'(1) = \E[X] 
+$$
+\end{propriedade}
+
+\begin{prova}
+Derivamos a série de potências da FGP, $\Pi_X(s) = \sum_{k=0}^{\infty} p_k s^k$, 
+termo a termo em relação a $s$:
+$$ 
+    \Pi_X'(s) = \frac{d}{ds} \sum_{k=0}^{\infty} p_k s^k = \sum_{k=1}^{\infty} k p_k s^{k-1} 
+$$
+Avaliando em $s=1$:
+$$ 
+    \Pi_X'(1) = \sum_{k=1}^{\infty} k p_k (1)^{k-1} = \sum_{k=0}^{\infty} k p_k 
+$$
+Esta última soma é, por definição, o valor esperado $\E[X]$ da 
+variável aleatória $X$.
+\end{prova}
+
+% --- Análise Gráfica ---
+A inclinação da curva $\Pi_X(s)$ no ponto $(1, 1)$ é exatamente 
+$\mu = \E[X]$. Além disso, a FGP é uma função convexa em 
+$[0, 1]$ (pois $\Pi_X''(s) = \sum k(k-1)p_k s^{k-2} \ge 0$). 
+Isso nos leva a três casos, como ilustrado na Figura \ref{fig:fgp_extincao}:
+
+\begin{itemize}
+    \item \textbf{Caso 1: $\mu > 1$ (Supercrítico).} 
+    A inclinação $\Pi_X'(1) > 1$. Como $\Pi_X(s)$ é convexa 
+    e $\Pi_X(1)=1$, a curva deve cruzar a linha $y=s$ 
+    em exatamente um outro ponto $p_e \in [0, 1)$. 
+    A probabilidade de extinção $p_e$ é esta solução, 
+    que é o \textbf{menor} ponto fixo positivo.
+    
+    \item \textbf{Caso 2: $\mu < 1$ (Subcrítico).}
+    A inclinação $\Pi_X'(1) < 1$. Devido à convexidade, a 
+    curva $\Pi_X(s)$ estará sempre acima da linha $y=s$ 
+    para $s \in [0, 1)$, tocando-a apenas em $s=1$. 
+    O único ponto fixo é $s=1$.
+    
+    \item \textbf{Caso 3: $\mu = 1$ (Crítico).}
+    A inclinação $\Pi_X'(1) = 1$. A linha $y=s$ é tangente 
+    à curva convexa $\Pi_X(s)$ em $s=1$. Novamente, o único 
+    ponto fixo no intervalo $[0, 1]$ é $s=1$ (assumindo que 
+    $P(X=1) \neq 1$).
+\end{itemize}
+
+% --- O Gráfico (Gerado por TikZ) ---
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        xlabel=$s$,
+        ylabel=$\Pi_X(s)$,
+        xmin=0, xmax=1.2,
+        ymin=0, ymax=1.2,
+        xtick={0, 0.25, 1}, % Ticks principais no eixo X
+        ytick={0, 0.2, 1},  % Ticks principais no eixo Y
+        xticklabels={0, $P_e$, 1}, % Labels personalizados para os ticks X
+        yticklabels={0, $p_0$, 1}, % Labels personalizados para os ticks Y
+        % Ajustes de estilo para os labels dos eixos
+        every axis x label/.append style={at={(current axis.right of origin)}, anchor=west},
+        every axis y label/.append style={at={(current axis.above origin)}, anchor=south},
+        % Adiciona setas nos eixos
+        axis line style={-stealth}, 
+        clip=false, % Permite que os labels e a tangente saiam um pouco da caixa
+        width=0.7\textwidth, % Ajusta a largura do gráfico
+        height=0.6\textwidth, % Ajusta a altura do gráfico
+        samples=100, % Aumenta o número de amostras para curvas mais suaves
+    ]
+    
+    % A linha y=s (em azul, tracejada)
+    \addplot[domain=0:1, blue, dashed, thick] {x} node[pos=0.8, anchor=south west, color=blue] {$y=s$};
+    
+    % A curva Pi_X(s) (em vermelho, mais grossa)
+    % (Exemplo: Pi_X(s) = 0.2 + 0.8s^2, para p0=0.2, mu=1.6, Pe=0.25)
+    \addplot[domain=0:1.05, red, very thick] {0.2 + 0.8*x^2} node[above left, pos=0.2, color=red] {$\Pi_X(s)$};
+    
+    % Pontos de interesse
+    \fill[black] (axis cs:0.25, 0.25) circle (1.5pt); % P_e
+    \fill[black] (axis cs:1, 1) circle (1.5pt);       % s=1
+    
+    % Linhas pontilhadas para P_e e p_0
+    \draw[dashed, gray] (axis cs:0, 0.2) -- (axis cs:0.25, 0.2); % De y-axis a P_e na curva
+    \draw[dashed, gray] (axis cs:0.25, 0) -- (axis cs:0.25, 0.25); % De x-axis a P_e na linha y=s
+
+    % Linha tangente em s=1
+    % A equação da tangente para Pi_X(s) = 0.2 + 0.8s^2 em s=1 é y - Pi_X(1) = Pi_X'(1) * (s - 1)
+    % y - 1 = 1.6 * (s - 1) => y = 1.6s - 1.6 + 1 => y = 1.6s - 0.6
+    \addplot[domain=0.7:1.1, black, thin, smooth] {1.6*x - 0.6};
+    \node[right, align=left, color=blue] at (axis cs:1.05, 1.1) {$\Pi_X'(1) = \mu > 1$};
+
+    % Label para p_0 no eixo Y
+    \node[left, color=red] at (axis cs:0, 0.2) {$p_0$};
+
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Interpretação gráfica da probabilidade de extinção $P_e$ como o menor ponto fixo positivo de $\Pi_X(s)$, no caso supercrítico ($\mu > 1$).}
+    \label{fig:fgp_extincao}
+\end{figure}
+
+% --- O Teorema Final ---
+Isso leva ao teorema fundamental sobre as condições de extinção.
+
+\begin{resultado}[Condição para Extinção Certa]
+Seja $\mu = \E[X]$ o número esperado de descendentes por indivíduo.
+\begin{itemize}
+    \item Se $\mu \le 1$, a probabilidade de extinção é $p_e = 1$ (assumindo $P(X=1) \neq 1$, o caso trivial).
+    \item Se $\mu > 1$, a probabilidade de extinção $p_e$ é a única solução no intervalo $[0, 1)$ para a equação $s = \Pi_X(s)$.
+\end{itemize}
+\end{resultado}
+
+
+
+\subsubsection{Valor Esperado de um processo de ramificação}
+
+Uma das aplicações mais diretas da FGP é o cálculo do 
+valor esperado (a média) do tamanho da população em qualquer 
+geração $t$, que denotaremos por $\mu_t = \E[Z_t]$. O resultado 
+mostra uma progressão geométrica simples, governada pela 
+média da prole, $\mu = \E[X]$.
+
+\begin{resultado}
+Seja $\mu = \E[X]$ a média da prole de um único indivíduo e 
+assumindo que o processo começa com um único ancestral ($Z_0 = 1$), 
+o valor esperado da população na $t$-ésima geração é:
+$$
+    \mu_t = \E[Z_t] = \mu^t
+$$
+\end{resultado}
+
+\begin{prova}
+Para provar este resultado, utilizamos duas propriedades da FGP 
+estabelecidas anteriormente:
+\begin{enumerate}
+    \item A relação de recorrência: $\Pi_{Z_{t+1}}(s) = \Pi_{Z_t}(\Pi_X(s))$
+    \item A propriedade da média: $\E[Y] = \Pi_Y'(1)$
+\end{enumerate}
+
+Nosso objetivo é encontrar $\mu_{t+1} = \E[Z_{t+1}] = \Pi_{Z_{t+1}}'(1)$.
+Começamos com a relação de recorrência (1) e derivamos ambos os 
+lados em relação a $s$, utilizando a Regra da Cadeia no lado direito:
+$$
+    \Pi_{Z_{t+1}}'(s) = \frac{d}{ds} \Pi_{Z_t}(\Pi_X(s))
+$$
+$$
+    \Pi_{Z_{t+1}}'(s) = \Pi_{Z_t}'(\Pi_X(s)) \cdot \Pi_X'(s)
+$$
+Agora, avaliamos esta expressão em $s=1$:
+$$
+    \Pi_{Z_{t+1}}'(1) = \Pi_{Z_t}'(\Pi_X(1)) \cdot \Pi_X'(1)
+$$
+Lembramos de duas propriedades cruciais avaliadas em $s=1$:
+\begin{itemize}
+    \item $\Pi_X(1) = 1$ (Propriedade 3: a soma das probabilidades é 1)
+    \item $\Pi_X'(1) = \E[X] = \mu$ (Propriedade 4: a média da prole)
+\end{itemize}
+Substituindo estes valores na equação:
+$$
+    \Pi_{Z_{t+1}}'(1) = \Pi_{Z_t}'(1) \cdot \mu
+$$
+Traduzindo a notação das derivadas da FGP de volta para 
+a notação do valor esperado (onde $\mu_t = \Pi_{Z_t}'(1)$), 
+obtemos a relação de recorrência para a média:
+$$
+    \mu_{t+1} = \mu_t \cdot \mu
+$$
+Esta é uma progressão geométrica simples. Assumindo que o processo 
+inicia com $Z_0 = 1$, temos $\mu_0 = \E[Z_0] = 1$. Resolvendo 
+a recorrência:
+\begin{itemize}
+    \item $\mu_1 = \mu_0 \cdot \mu = 1 \cdot \mu = \mu$
+    \item $\mu_2 = \mu_1 \cdot \mu = (\mu) \cdot \mu = \mu^2$
+    \item $\mu_3 = \mu_2 \cdot \mu = (\mu^2) \cdot \mu = \mu^3$
+    \item \dots
+    \item $\mu_t = \mu^t$
+\end{itemize}
+\end{prova}
+
+Este resultado confirma a intuição da análise de extinção: se 
+$\mu < 1$, o tamanho esperado da população decai geometricamente 
+para zero. Se $\mu > 1$, o tamanho esperado da população cresce 
+exponencialmente. Se $\mu = 1$, o tamanho esperado da população 
+permanece constante em 1.
+
+\end{document}
