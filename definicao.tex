@@ -18,10 +18,10 @@ Outra maneira de analisar, é o que foi dado na introdução, isto é, se $X^{(n
 
 \[Z_{n+1} = \sum_{i=1}^{Z_n} X^{(n)}_i\]
 
-\begin{proposicao}{}{}
-Seja $Z_n$ o número de indivíduos na geração $n$, como definido acima, e $X$ o número de descendentes de um determinado indivíduo (lembre que $X \sim p$), então:
+\begin{proposicao}{Valor Esperado de $Z_n$}{}
+Seja $(Z_n)$ uma cadeia de ramificação. Seja $X$ o número de descendentes de um determinado indivíduo (lembre que $X \sim p$), e suponha que $\mathbb{E}[X] = \mu$, então:
     \[
-        \E(Z_n) = \E(X)^{n}
+        \E(Z_n) = \mu^{n}
     \]
 Isto é, o valor esperado de indivíduos na cadeia no tempo $n$ é o valor esperado do número de filhos que um indivíduo tenha na cadeia elevado a $n$.
 \end{proposicao}
@@ -31,9 +31,62 @@ Isto é, o valor esperado de indivíduos na cadeia no tempo $n$ é o valor esper
 
     \[\E(Z_n) = \E\left(\sum_{i=1}^{Z_{n-1}} X_i^{(n)}\right) = \E\left(\E\left(\sum_{i=1}^{Z_{n-1}}X_i^{(n)}\,\middle|\, Z_{n-1}\right)\right) = \E(Z_{n-1} \cdot \E(X_i^{(n)}))  \]
 
-    \[ = \E(Z_{n-1}) \cdot \E(X) = \dots = \E(X)^{n} \cdot \E(Z_0) = \E(X)^{n}\]
+    \[ = \E(Z_{n-1}) \cdot \E(X) = \dots = \E(Z_0) \cdot \E(X)^{n} = \E(X)^{n}\]
 
     Portanto, $\E(Z_n) = \E(X)^{n}$, como queríamos
+\end{dem}
+
+\begin{proposicao}{Variância de $Z_n$}{}
+    Seja $(Z_n)$ uma cadeia de ramificação. Seja $X$ o número de descendentes 
+    de um determinado indivíduo (lembre que $X \sim p$), e suponha que 
+    $\mathbb{E}[X] = \mu$ e $\mathrm{Var}(X) = \sigma^2$. Então
+    \[
+    \mathrm{Var}(Z_n) = 
+    \begin{cases}
+        \sigma^2 n, & \text{se } \mu = 1, \\[6pt]
+        \sigma^2 \mu^{\,n-1}\displaystyle\left(\frac{1-\mu^n}{1-\mu}\right), 
+        & \text{se } \mu \neq 1.
+    \end{cases}
+    \]
+\end{proposicao}
+
+\begin{dem}
+    Podemos demonstrar essa fórmula utilizando a lei da variância total. De fato, seja $V_n = \mathrm{Var}(Z_n)$ e $Z_n = \sum_{i=1}^{Z_{n-1}} X_i^{(n)}$, temos que:
+
+    \[
+    \mathrm{Var}(Z_n) = \mathbb{E}(\mathrm{Var}(Z_n | Z_{n-1})) + \mathrm{Var}(\mathbb{E}(Z_n | Z_{n-1}))
+    \]
+
+    \[
+        V_n = \E(Z_{n-1} \cdot \sigma^2) + \mathrm{Var}(Z_{n-1} \cdot \mu)
+    \]
+
+    \[
+        V_n = \mu^{n-1} \cdot \sigma^2 + \mu\cdot V_{n-1}
+    \]
+
+    Encontramos uma recorrência para $V_n$, substituindo para os valores iniciais, podemos perceber um padrão se formando (a prova formal é dada por indução e não será feita aqui). De fato, observe que:
+    \begin{align*}
+    V_1 &= \sigma^2 \\
+    \\
+    V_2 &= \mu^2 V_1 + \sigma^2 \mu = \mu^2 \sigma^2 + \mu \sigma^2 = \mu \sigma^2 (1 + \mu) \\
+    \\
+    V_3 &= \mu^2 V_2 + \sigma^2 \mu^2 = \mu^2 \sigma^2 (1 + \mu + \mu^2) \\
+    \\
+    &\vdots\\
+    \\
+    V_n &= \mu^{n-1} \sigma^2 (1 + \mu + \mu^2 + \dots + \mu^{n-1}) \\
+    \\
+    &= \mu^{n-1} \sigma^2 \left( \frac{1 - \mu^n}{1 - \mu} \right). \quad \text{Válido para } \mu \neq 1. \\
+    \end{align*}
+
+    E portanto, se $\mu = 1$, obtemos
+    \[
+        V_n = 1^{n-1}\sigma^{2}(1 + 1 + 1^2 + \dots + 1^{n-1}) = \sigma^{2}n
+    \]
+    
+    como queríamos.
+
 \end{dem}
 
 \begin{exemplo}{}{}
