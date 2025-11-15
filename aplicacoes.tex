@@ -1,0 +1,67 @@
+\section{Aplicações}
+
+\subsection{Mutação}
+
+Suponha uma população que pode ser modelada através de um modelo de cadeias ramificação, porém cada novo indivíduo
+possui uma probabilidade $\gamma$ de possuir uma mutação. Qual a probabilidade de que essa população contraia essa
+mutação?
+
+Seja $X$ a variável aleatória que conta todos os nascimentos a partir do primeiro indivíduo, ou seja:
+
+\[
+X = \sum_{i \geq 0} Z_i
+\]
+
+onde $Z_0 = 1$. Logo a FGP  de $X$ é dada por 
+
+\[
+\Pi_{X}(s) = \sum_{k \geq 0 }s^{k}P(X=k) = \E(s^{k})
+\]
+
+Condicionando $\Pi_{X}(s)$ no número de indivíduos da primeira geração:
+
+\[
+\Pi_{X}(s) = \E(s^{X}) = \sum_{k \geq 0}\E(s^{X} | X_1 = k)P(Z_1 = k | Z_0 = 1) = \E(\E(s^{x} | Z_1))
+\]
+
+Tomando $Z_1 = k$, temos $k$ indivíduos no tempo 1, que começam $k$ processos de ramificação independentes, logo $X$
+é a soma do indivíduo original somado aos indivíduos de cada um desses $k$ processos de ramificação, que possuem mesma
+distribuição de X, ou seja:
+
+$\E(s^{X} | Z_1 = k) = \E(s^{1 + X_1 + \dots + X_k})$
+
+Por independência temos que
+
+\[\E(s^{x} | Z_1 = k ) = s\E(s^{X_1})\dots\E(s^{X_k}) = s\E(s^{X})^k\]
+
+Como a função geradora de probabilidade da distribuição do número de filhos é 
+
+\[
+f(s) = \sum p_{k}s^{k}
+\]
+
+podemos afirmar que
+
+\[
+\Pi_X(s) = s f (\Pi_X(s))
+\].
+
+Vamos agora considerar o caso particular onde $p_0 = 1 - p $ e $p_2 = p$. A FGP dessa distribuição é 
+
+\[
+f(s) = p_0s^{0} + p_2s^2 = 1 - p + ps^2
+\]
+
+então
+
+\[
+\Pi_{X}(s) = s f (\Pi_X(s)) = s(1-p + p \Pi_{X}(s)^2) = s - ps + ps\Pi_{X}(s)^2 \implies ps\Pi_{X}(s)^2
+- \Pi_{X}(s) + s(1 - p) = 0
+\]
+
+provido do fato de que $\lim_{s \to 0)\Pi_{X}(s) = 0$, podemos resolver a equação, encontrando
+
+\[
+\Pi_{X}(s) = \frac{1}{2ps} - \sqrt{\frac{1 - 4ps^2(1-p)}{4p^2s^2}}
+\]
+
