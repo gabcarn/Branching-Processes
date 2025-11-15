@@ -1,0 +1,67 @@
+\section{Processo de Ramificação}
+
+\begin{definicao}{Processo de Ramificação}{}
+Um \textbf{processo de ramificação} é definido da seguinte forma:
+
+\begin{itemize}
+    \item Um único indivíduo no instante $n = 0$.
+    \item Cada indivíduo vive exatamente uma unidade de tempo, depois produz $Y$ descendentes e morre.
+    \item O número de descendentes $Y$ assume valores $0, 1, 2, \ldots$, e a probabilidade de produzir $k$ descendentes é $\mathbb{P}(Y = k) = p_k$.
+    \item Todos os indivíduos se reproduzem independentemente. Os indivíduos $1, 2, \ldots, n$ têm tamanhos de família $Y_1, Y_2, \ldots, Y_n$, onde cada $Y_i$ tem a mesma distribuição que $Y$.
+    \item Seja $Z_n$ o \textit{número de indivíduos nascidos} no instante $n$, para $n = 0, 1, 2, \ldots$.
+    Interprete $Z_n$ como o \textit{``tamanho'' da geração $n$}.
+    \item Então o processo de ramificação é $\{Z_0, Z_1, Z_2, Z_3, \ldots\} = \{Z_n : n \in \mathbb{N}\}$.
+\end{itemize}
+\end{definicao}
+
+Outra maneira de analisar, é o que foi dado na introdução, isto é, se $X^{(n)}_i \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração, temos que 
+
+\[Z_{n+1} = \sum_{i=1}^{Z_n} X^{(n)}_i\]
+
+\begin{proposicao}{}{}
+Seja $Z_n$ o número de indivíduos na geração $n$, como definido acima, e $X$ o número de descendentes de um determinado indivíduo (lembre que $X \sim p$), então:
+    \[
+        \E(Z_n) = \E(X)^{n}
+    \]
+Isto é, o valor esperado de indivíduos na cadeia no tempo $n$ é o valor esperado do número de filhos que um indivíduo tenha na cadeia elevado a $n$.
+\end{proposicao}
+
+\begin{dem}
+    De fato, podemos simplesmente fazer as contas:
+
+    \[\E(Z_n) = \E\left(\sum_{i=1}^{Z_{n-1}} X_i^{(n)}\right) = \E\left(\E\left(\sum_{i=1}^{Z_{n-1}}X_i^{(n)}\,\middle|\, Z_{n-1}\right)\right) = \E(Z_{n-1} \cdot \E(X_i^{(n)}))  \]
+
+    \[ = \E(Z_{n-1}) \cdot \E(X) = \dots = \E(X)^{n} \cdot \E(Z_0) = \E(X)^{n}\]
+
+    Portanto, $\E(Z_n) = \E(X)^{n}$, como queríamos
+\end{dem}
+
+\begin{exemplo}{}{}
+    Considere uma cadeia de ramificação $(Z_n)$ com $p = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \dots)$, estudaremos as perguntas vistas na introdução.
+
+\end{exemplo}
+
+\begin{itemize}
+    \item Qual a esperança e a variância de $Z_n$?
+
+    Observe que:
+
+    \[
+        \E(X) = \sum_{i=0}^{\infty} i \cdot \Pp(X = i) = \sum_{i=0}^{\infty} \dfrac{i}{2^{i+1}} 
+    \] 
+
+    E portanto, podemos escrever como 
+    \[
+    \begin{aligned}
+    \E(X) = 
+     \tfrac{1}{2} + \tfrac{1}{4} &+ \tfrac{1}{8} + \tfrac{1}{16} + \cdots \\[4pt]
+    + \tfrac{1}{4} &+ \tfrac{1}{8} + \tfrac{1}{16} + \cdots  \\[4pt]
+    &+  \tfrac{1}{8} + \tfrac{1}{16} + \cdots
+    \end{aligned}
+    \]
+    Logo, realizando a soma dessas progressões geométricas, temos $\E(X) = 1$, e também $\E(Z_n) = 1^n = 1$ para todo $n$.
+
+    \item Qual a probabibilidade de extinção da cadeia? 
+
+    É intuitivo imaginar que a probabilidade de extinção seja $1$, a probabilidade de ter $0$ filhos é muito maior que as demais probabilidades. Mas queremos ser capazes de fazer essas contas.
+\end{itemize}

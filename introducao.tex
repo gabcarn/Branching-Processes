@@ -4,9 +4,9 @@ O estudo da dinâmica das populações foi frutífero para a matemática, como s
 
 A ideia de utilizar um processo estocástico para estudar o crescimento populacional tem origem nos trabalhos de Francis Galton\footnote{Curiosidade: era também primo de Charles Darwin e foi o idealizador da Eugenia} e de Henry William Watson, que estavam interessados na possível extinção de sobrenomes de aristocratas no Reino Unido. Uma cadeia de ramificação, portanto, pode ser descrita da seguinte maneira:
 
-Um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada de forma que o tamanho de sua prole tem distribuição dada por $ \{p_k\}{k \in \mathbb{N}}$. Queremos modelar a quantidade de indivíduos em um dado tempo $t$, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante. Formalizando essa ideia, podemos definir a sequência de variáveis aleatórias $Z_n$ como o número de indivíduos da espécie no instante $n$, tomando sempre $Z_0 = 1$. Cada indivíduo se reproduz de maneira independente seguindo a mesma distribuição de prole $p$. Assim, se $X{n,i} \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração, temos que 
+Um indivíduo de uma certa espécie se reproduz (e morre logo em seguida) de maneira assexuada de forma que o tamanho de sua prole tem distribuição dada por $ \{p_k\}{k \in \mathbb{N}}$. Queremos modelar a quantidade de indivíduos em um dado tempo $t$, considerando que todos indivíduos de uma mesma geração se reproduzem e morrem num mesmo instante. Formalizando essa ideia, podemos definir a sequência de variáveis aleatórias $Z_n$ como o número de indivíduos da espécie no instante $n$, tomando sempre $Z_0 = 1$. Cada indivíduo se reproduz de maneira independente seguindo a mesma distribuição de prole $p$. Assim, se $X^{(n)}_i \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração, temos que 
 
-\[Z_n+1 = \sum_{i=1}^{Z_n} X_{n,i}\]
+\[Z_n+1 = \sum_{i=1}^{Z_n} X^{(n)}_i\]
 
 Num certo sentido, uma cadeia de ramificação se difere de um passeio aleatório pelo fato de que: (i) os passos não são cumulativos; (ii) a distribuição dos passos depende da posição em que se encontra.
 
@@ -22,42 +22,3 @@ Estabelecida a teoria básica, podemos nos fazer as seguintes perguntas típicas
 
 Planejamos, nas seguintes seções, desenvolver a teoria necessária para tentar responder as perguntas acima.
 
-\subsection{
-Probabilidade de extinção
-
-\begin{exemplo}{}{}
-    \begin{enumerate}
-        \item Se eu tenho uma população tal que $p_0 = 1$, então na próxima geração certamente ela irá se extinguir, isto é $X_t = 0 \,\, \forall t \geq 0$, e portanto, sua probabilidade de extinção é $1$.
-        \item Se eu te tenho uma população tal que $p_0 = \frac{1}{100}$ e $p_1 = \frac{99}{100}$, então na próxima geração certamente ela irá se extinguir, isto é $X_t = 0$, existirá um tempo $t_0$ tal que $X_t = \,\, \forall t \geq t_0$. Daí, sua probabilidade de extinção também é $1$.
-        \item Caso seja uma população tal que $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$. $p_2 = \frac{1}{4}$, mostraremos também que a população irá se extinguir. 
-    \end{enumerate}
-\end{exemplo}
-
-Daí surge a pergunta natural, como estudar a probabibilidade de extinção? Usaremos a seguinte notação
-
-\[
-\Pp_e = \Pp(\text{Extinção}) = \Pp\left(\bigcup^{\infty}_{n=0} X_n = 0\right) = \lim_{n \to \infty} \Pp(X_n = 0) 
-\]
-
-
-\begin{definicao}{Função Geradora de Probabilidade}{}
-Considere $X$ uma variável aleatória, definiremos a \textbf{Função Geradora de Probabilidade} $\Pi_X: \R \to \R$ como sendo
-    \[
-    \Pi_X(S) = \E(S^X) = \sum_{x=0}^{\infty}\Pp(X=x)S^x
-    \]
-\end{definicao}
-
-Propriedades da função geradora de probabibilidade (fácil verificação)
-
-\begin{enumerate}
-    \item $\Pi_X (0) = \Pp(X = 0)$
-    \item $\Pi_X'(S) =  \Pp(X = 1)$, de modo geral, $\Pi_X'(0) =  n!\cdot\Pp(X = n)$
-    \item $\Pi_X(1) = \sum_{x=0}^{\infty}\Pp(X=x) = 1$
-\end{enumerate}
-
-\begin{exemplo}{}{}
-    Considere a v.a. $X \sim Bernoulli(p)$, iremos calcular a F.G.P desta variável aleatória. 
-    \[
-    \Pi_X(S) = \E(S^X) = \Pp(X=0) + \Pp(X = 1)\cdot S = (1-p) + p\cdot S
-    \]
-\end{exemplo}
