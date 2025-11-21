@@ -71,7 +71,7 @@ provido do fato de que $\lim_{s \to 0)\Pi_{X}(s) = 0$, podemos resolver a equaç
 Queremos agora encontrar uma expansão em série de potências para $\Pi_X$. Usando a Fórmula de Newton, temos o
 seguinte resultado.
 
-\begin{lemma}{Lema}{4.1.1} Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
+\begin{lema}{Lema}{} Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
 $x \in (-1,1)$,
 
 \[
@@ -79,7 +79,7 @@ $x \in (-1,1)$,
 -(\sum_{n=0}^{\infty}\binom{1/2}{n}(-x)^n-1) = 1 - \sqrt{1-x}.
 \]
 
-\end{lemma}
+\end{lema}
 
 Voltando para o problema, usando $x = 4ps^2(1-p)$ e $c_n$ como no Lema acima, temos:
 
@@ -93,7 +93,7 @@ Temos assim uma expansão em série de potências para $g(s), s \in (-1,1)$, o q
 P(X = 2n -1 | Z_0 = 1) = \frac{(2n-2)!}{n!(n-1)}p^{n-1}(1-p)^n.
 \]
 
-Voltando agora ao problema inicial, sejam $M$ o evento de que a mutação aparece na populaçãop e $M^c$ o complemento de $M$.
+Voltando agora ao problema inicial, sejam $M$ o evento em que a mutação aparece na populaçãop e $M^c$ o complementar de $M$.
 Se $X$ é infinito, então a probabilidade da população contrair a mutação é sempre 1, logo estamos interessados nos casos em que 
 a população é extinta em algum momento. A probabilidade de que a mutação nunca apareça é:
 
@@ -106,7 +106,7 @@ Porém sabemos que
 P(x = 2n -1 | Z_0 = 1 ) = \frac{(2n - 2)!}{k!(n-1)!}p^{n-1}(1-p)^n,
 \]
 
-logo:
+logo
 
 \[
 P(M^c) = \sum_{k = 1}^{\infty}(1 - \gamma )^{2k -2}\frac{(2k-2)}{k!(k-1)!}p^{k-1}(1-p)^k.
@@ -153,17 +153,17 @@ f(N,\gamma,p) = P(M^c | Z_0 = N).
 Como cada um dos potógenos possui seu próprio porcesso de ramificação de forma independente dos demais, a probabilidade que queremos
 calcular é
 
-\[
-f(N,\gamma,p) = f(1,\gamma,p)^N = (\frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}))^N
-\]
+\begin{equation}
+    f(N,\gamma,p) = f(1,\gamma,p)^N = (\frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}))^N
+\end{equation}
 
 que é uma expressão um pouco complicada de se trabalhar. 
 
 Queremos estudar o comportamento da função para diferentes valores de $p$. Para facilitar um pouco os cálculos iremos utilizar 
 aproximação linear para obter uma expressão mais simples.
 
-\begin{definition}
-Dada uma função $f(x)$ continua, diferenciável e com variável real x,
+\begin{definicao}{Aproximação linear}{}
+Dada uma função $f(x)$ contínua, diferenciável e com variável real x,
 
 \[
 f(x) = f(a) + f'(a)(x-a) + o(x)
@@ -177,7 +177,7 @@ f(x) \approx f(a) + f'(a)(x-a),
 \]
 
 para valores próximos de a, a curva descrita pela função $f(x)$ se aproxima de uma reta.
-\end{definition}
+\end{definicao}
 
 Dada a definição, podemos separar nossa função em partes e encontrar uma aproximação linear para cada.
 
@@ -190,11 +190,11 @@ f_1(\gamma) \approx 1 + 2\gamma
 Para a função $f_2(\gamma) = \sqrt{1 - 4p(1-p)(1-\gamma)^2}$ temos a aproximação linear
 
 \[
-f_2(\gamma) \approx = |1 - 2p|(1 + \frac{4p(1-p)}{(1-2p)^2}\gamma).
+f_2(\gamma) \approx |1 - 2p|(1 + \frac{4p(1-p)}{(1-2p)^2}\gamma).
 \]
 
 
-Usando as aproximações de $f_1$ e $f_2$ conseguimos para $p < \frac{1}{2}$ a seguinte aproximação para nossa expressão
+Usando as aproximações de $f_1$ e $f_2$ conseguimos para $p < \frac{1}{2}$ fixo a seguinte aproximação para nossa expressão
 
 \[
 f(N, \gamma, p) \approx (\frac{(1 + 2\gamma)}{2p}(1 - (1 - 2p)(1 + \frac{4p(1-p)}{(1- 2p)^2}\gamma)))^N
@@ -254,7 +254,7 @@ f(N, \gamma, p) \approx (\frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p-1)}\gamma))^N < (
 e como consequência temos também que 
 
 \[
-f(N, \gamma, p) < (\frac{1-p}{p})^n.
+f(N, \gamma, p) < (\frac{1-p}{p})^N.
 \]
 
 mostrando que a medida que $N$ aumenta, a probabilidade de que os patógenos adquiram a resistência ao medicamento também aumenta, tornando 
