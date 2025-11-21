@@ -1,5 +1,8 @@
 \section{Aplicações}
 
+O estudo de cadeias de ramificação pode ser aplicado em vários cenários. Mostraremos aqui algumas aplicações biológicas
+do estudo de cadeias de ramificação, sendo o segundo modelo uma extensão do primeiro.
+
 \subsection{Mutação}
 
 Suponha uma população que pode ser modelada através de um modelo de cadeias ramificação, porém cada novo indivíduo
@@ -37,53 +40,51 @@ Por independência temos que
 Como a função geradora de probabilidade da distribuição do número de filhos é 
 
 \[
-f(s) = \sum p_{k}s^{k}
+\phi(s) = \sum p_{k}s^{k}
 \]
 
 podemos afirmar que
 
 \[
-\Pi_X(s) = s f (\Pi_X(s))
+\Pi_X(s) = s \phi (\Pi_X(s))
 \].
 
 Vamos agora considerar o caso particular onde $p_0 = 1 - p $ e $p_2 = p$. A FGP dessa distribuição é 
 
 \[
-f(s) = p_0s^{0} + p_2s^2 = 1 - p + ps^2
+\phi(s) = p_0s^{0} + p_2s^2 = 1 - p + ps^2
 \]
 
 então
 
 \[
-\Pi_{X}(s) = s f (\Pi_X(s)) = s(1-p + p \Pi_{X}(s)^2) = s - ps + ps\Pi_{X}(s)^2 \implies ps\Pi_{X}(s)^2
+\Pi_{X}(s) = s \phi (\Pi_X(s)) = s(1-p + p \Pi_{X}(s)^2) = s - ps + ps\Pi_{X}(s)^2 \implies ps\Pi_{X}(s)^2
 - \Pi_{X}(s) + s(1 - p) = 0
 \]
 
 provido do fato de que $\lim_{s \to 0)\Pi_{X}(s) = 0$, podemos resolver a equação, encontrando
 
 \[
-\Pi_{X}(s) = \frac{1}{2ps} - \sqrt{\frac{1 - 4ps^2(1-p)}{4p^2s^2}} = \frac{1}{2ps}(1- \sqrt{1- 4ps^2(1 - p)})
-\].
+\Pi_{X}(s) = \frac{1}{2ps} - \sqrt{\frac{1 - 4ps^2(1-p)}{4p^2s^2}} = \frac{1}{2ps}(1- \sqrt{1- 4ps^2(1 - p)}).
+\]
 
 Queremos agora encontrar uma expansão em série de potências para $\Pi_X$. Usando a Fórmula de Newton, temos o
 seguinte resultado.
 
-\begin{lemma}{título}{não sei}
-    
-Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
+\begin{lemma}{Lema}{4.1.1} Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
 $x \in (-1,1)$,
 
 \[
 \sum_{n = 1}^{\infty} c_nx^n = - \sum_{n = 1}^{\infty}\binom{1/2}{n}(-x)^n = 
--(\sum_{n=0}^{\infty}\binom{1/2}{n}(-x)^n-1) = 1 - \sqrt{1-x}
-\].
+-(\sum_{n=0}^{\infty}\binom{1/2}{n}(-x)^n-1) = 1 - \sqrt{1-x}.
+\]
 
 \end{lemma}
 
 Voltando para o problema, usando $x = 4ps^2(1-p)$ e $c_n$ como no Lema acima, temos:
 
 \[
-\Pi_{X}(s) = \frac{1}{2ps}\sum_{n=1}^{\infty}c_n(4p(1-p)s^2)^n = \sum_{n=1}^{\infty}\frac{(2n-2)!}{n!(n-1)!}p^{n-1}(1-p)^na^{2n-1}
+\Pi_{X}(s) = \frac{1}{2ps}\sum_{n=1}^{\infty}c_n(4p(1-p)s^2)^n = \sum_{n=1}^{\infty}\frac{(2n-2)!}{n!(n-1)!}p^{n-1}(1-p)^na^{2n-1}.
 \]
 
 Temos assim uma expansão em série de potências para $g(s), s \in (-1,1)$, o que nos fornece a distribuição de $X$. Para $n \geq 1$,
@@ -97,34 +98,164 @@ Se $X$ é infinito, então a probabilidade da população contrair a mutação �
 a população é extinta em algum momento. A probabilidade de que a mutação nunca apareça é:
 
 \[
-P(M^c) = P(M^c, X < \infty) = \sum_{k = 1}^{\infty} P(M^c | X = k)P(X = k) = \sum_{k = 1}^{\infty}(1 - \gamma)^{k-1}P(X = k)
-\].
+P(M^c) = P(M^c, X < \infty) = \sum_{k = 1}^{\infty} P(M^c | X = k)P(X = k) = \sum_{k = 1}^{\infty}(1 - \gamma)^{k-1}P(X = k).
+\]
 
 Porém sabemos que 
 \[ 
-P(x = 2n -1 | Z_0 = 1 ) = \frac{(2n - 2)!}{k!(n-1)!}p^{n-1}(1-p)^n
-\],
+P(x = 2n -1 | Z_0 = 1 ) = \frac{(2n - 2)!}{k!(n-1)!}p^{n-1}(1-p)^n,
+\]
 
 logo:
 
 \[
-P(M^c) = \sum_{k = 1}^{\infty}(1 - \gamma )^{2k -2}\frac{(2k-2)}{k!(k-1)!}p^{k-1}(1-p)^k
-\].
+P(M^c) = \sum_{k = 1}^{\infty}(1 - \gamma )^{2k -2}\frac{(2k-2)}{k!(k-1)!}p^{k-1}(1-p)^k.
+\]
 
 Reorganizando os termos,
 
 \[
-P(M^c) = \frac{1}{2p(1 - \gamma)^2}\sum_{k = 1}^{\infty}\frac{(2k-2)!}{k!(k-1)!2^{2k -1}}(2^2(1-\gamma)^2(1-p)p)^k
-\],
+P(M^c) = \frac{1}{2p(1 - \gamma)^2}\sum_{k = 1}^{\infty}\frac{(2k-2)!}{k!(k-1)!2^{2k -1}}(2^2(1-\gamma)^2(1-p)p)^k,
+\]
 
-Assim, pelo Lema já apresentado,
+Assim, pelo Lema 4.1.1,
 
 \[
-P(M^c) = \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2})
-\].
+P(M^c) = \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}).
+\]
 
 Finalmente,
 
 \[
-P(M) = 1 -  \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2})
-\].
+P(M) = 1 -  \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}).
+\]
+
+\subsection{Resistência a um determinado Medicamento}
+
+Imagine agora que a população trabalhada anteriormente é uma população de patógenos, e que a mutação torna cada indivíduo
+resistente a um determinado medicamento usado no tratamento contra esse patógeno. Qual a probabilidade de que a população
+seja extinta antes do aparecimento dessa resistência?
+
+Continuando nas mesmas condinções da aplicação anterior, vimos que caso a população inicialmente possua apenas 1 indivíduo,
+a probabilidade de não ocorrer a mutação é
+
+\[
+P(M^c) = \frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}).
+\]
+
+Porém quando uma pessoa inicia um tratamento para uma doença ela já possui alguns sintomas e consequentemente o número de patógenos
+é maior que 1.Tomando $Z_0 = N$, podemos definir a seguinte função
+
+\[
+f(N,\gamma,p) = P(M^c | Z_0 = N).
+\]
+
+Como cada um dos potógenos possui seu próprio porcesso de ramificação de forma independente dos demais, a probabilidade que queremos
+calcular é
+
+\[
+f(N,\gamma,p) = f(1,\gamma,p)^N = (\frac{1}{2p(1-\gamma)^2}(1 - \sqrt{1- 4(1-p)(1 - \gamma)^2}))^N
+\]
+
+que é uma expressão um pouco complicada de se trabalhar. 
+
+Queremos estudar o comportamento da função para diferentes valores de $p$. Para facilitar um pouco os cálculos iremos utilizar 
+aproximação linear para obter uma expressão mais simples.
+
+\begin{definition}
+Dada uma função $f(x)$ continua, diferenciável e com variável real x,
+
+\[
+f(x) = f(a) + f'(a)(x-a) + o(x)
+\]
+
+Onde $o(x)$ é uma função que representa o erro ($\lim_{x \to a} \frac{o(x)}{x} = 0$).Uma aproximação linear de f(x) é obtida desconsiderando
+a função erro, isto é,
+
+\[
+f(x) \approx f(a) + f'(a)(x-a),
+\]
+
+para valores próximos de a, a curva descrita pela função $f(x)$ se aproxima de uma reta.
+\end{definition}
+
+Dada a definição, podemos separar nossa função em partes e encontrar uma aproximação linear para cada.
+
+Para a primeira função $f_1(\gamma) = (1 - \gamma)^{-2}$ temos a aproximação linear
+
+\[
+f_1(\gamma) \approx 1 + 2\gamma
+\]
+
+Para a função $f_2(\gamma) = \sqrt{1 - 4p(1-p)(1-\gamma)^2}$ temos a aproximação linear
+
+\[
+f_2(\gamma) \approx = |1 - 2p|(1 + \frac{4p(1-p)}{(1-2p)^2}\gamma).
+\]
+
+
+Usando as aproximações de $f_1$ e $f_2$ conseguimos para $p < \frac{1}{2}$ a seguinte aproximação para nossa expressão
+
+\[
+f(N, \gamma, p) \approx (\frac{(1 + 2\gamma)}{2p}(1 - (1 - 2p)(1 + \frac{4p(1-p)}{(1- 2p)^2}\gamma)))^N
+\]
+\[
+= (\frac{(1+2\gamma)}{2p}(2p - \frac{4p(1-p)}{(1-2p)}\gamma))^n
+\]
+\[
+= ((1 + 2\gamma)(1 - \frac{2(1-p)}{(1-2p)}\gamma))^N.
+\]
+
+Fazendo agora $f_3(\gamma) = (1 + 2\gamma)(1 - \frac{2(1-p)}{(1-2p)}\gamma)$, encontramos a seguinte aproximação linear
+
+\[
+f_3(\gamma) \approx 1 - \frac{2p}{1-2p}\gamma.
+\]
+
+Logo,
+
+\[
+f(N, \gamma, p) \approx (1 - \frac{2p}{1-2p})^N, \ \text{para} \ p < \frac{1}{2}.
+\]
+
+Podemos agora limitar essa aproximação utilizando o fato $e^{-x} > 1-x \forall x > 0$, ou seja,
+
+\[
+f(N, \gamma, p) \approx (1- \frac{2p}{1-2p}\gamma)^N < exp(-\frac{2p}{1-2p}N\gamma).
+\]
+
+A partir disso, observa-se que para $p < \frac{1}{2}$ fixo, a probabilidade de não ter resistência depende do parâmetro 
+$m \equiv N\gamma$, e decresce exponenciamente quando $m$ aumenta.
+
+Usando agora as aproximações de $f_1$ e $f_2$ e $p > \frac{1}{2}$ fixo na expressão original, obtemos a seguinte aproximação para a expressão
+
+\[
+f(N, \gamma, p) \approx ((1 + 2\gamma)\frac{(1-p)}{p}(1 + \frac{2p}{(1 - 2p)}\gamma))^N.
+\]
+
+Usando então $f_4(\gamma) = (1 + 2\gamma)\frac{(1-p)}{p}(1 + \frac{2p}{(1 - 2p)}\gamma)$, obtemos a aproximação linear
+
+\[
+f_4(\gamma) \approx \frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p -1)}\gamma).
+\]
+
+Encontramos então o seguinte resultado,
+
+\[
+f(N, \gamma, p) \approx (\frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p-1)}\gamma))^N, \ \text{para} \ p > \frac{1}{2}.
+\]
+
+Usando novamente o fato $e^{-x} > 1 - x \forall x > 0$, obtemos um limitante para essa aproximação,
+
+\[
+f(N, \gamma, p) \approx (\frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p-1)}\gamma))^N < (\frac{1-p}{p})^N exp(-\frac{2(1-p)}{(2p-1)}N\gamma),
+\]
+
+e como consequência temos também que 
+
+\[
+f(N, \gamma, p) < (\frac{1-p}{p})^n.
+\]
+
+mostrando que a medida que $N$ aumenta, a probabilidade de que os patógenos adquiram a resistência ao medicamento também aumenta, tornando 
+o tratamento bem mais complicado.
