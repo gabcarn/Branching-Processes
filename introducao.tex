@@ -31,6 +31,8 @@ Tome $\textbf{p} \sim k \cdot \text{Bernoulli}(p)$, ou seja, cada indivíduo des
 \end{exemplo}
 
 No exemplo 1.1.1, algumas das perguntas feitas inicialmente são relativamente fáceis de responder:
+\begin{sol}
+
 
 \begin{itemize}
 	\item O número esperado de filhos é $k\mathbb{E}(\textbf{p}) = k \cdot p$;
@@ -44,17 +46,17 @@ No exemplo 1.1.1, algumas das perguntas feitas inicialmente são relativamente f
 Usando a condição de contorno $Var(Z_1) = k^2p^2(1-p)^2$, obtemos que \[Var(Z_n) = k^{n+1}p^n(1-p)(1+(kp)+(kp)^2+ \dots + (kp)^{n-1})\]
 \end{itemize}
 
+
+\end{sol}
 \vspace{0.2cm}
 
 Iremos abordar de maneira mais completa a probabilidade de extinção em seções posteriores, mas o modelo do exemplo 1.1.1 já nos leva a interessantes reflexões: a extinção ou não dos indivíduos modelo parece depender apenas da distribuição da prole; a esperança e a variância de $Z_n$ parecem ter o mesmo comportamento assintótico, isto é, ambas convergem ou divergem quando o $n \to \infty$; combinando as duas afirmações anteriores com a desigualdade de Markov, obtemos que:
 
 \[\mathbb{P}(Z_n \geq 1) \leq \mathbb{E}(Z_n) = (kp)^n\]
 
-Ou seja, apesar da média de $Z_n$  não nos dá informação muito útil quando ela é maior do que 1, mas parece nos dizer que $Z_n$ converge em probabilidade para 0 quando é estritamente menor do que 1.
+Ou seja, apesar da média de $Z_n$  não nos dá informação muito útil quando ela é maior do que 1, mas ela nos diz que $Z_n$ converge em probabilidade para 0 quando é estritamente menor do que 1.
 
 Abaixo, estão os resultados da distribuição de $Z_{20}$ advindos de simulações implementadas no arquivo \verb|bernoulli.py|. 
-
-
 
 
 
