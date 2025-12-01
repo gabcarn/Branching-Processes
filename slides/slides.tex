@@ -1,0 +1,969 @@
+% =============================================================================
+% APRESENTAÇÃO: CADEIAS DE RAMIFICAÇÃO
+% Curso: Processos Estocásticos - FGV/EMAp
+% =============================================================================
+
+\documentclass[11pt,aspectratio=169]{beamer}
+
+% -----------------------------------------------------------------------------
+% PACOTES
+% -----------------------------------------------------------------------------
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{eulervm}  % Fonte matemática Euler
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins}
+
+% -----------------------------------------------------------------------------
+% TEMA E CORES
+% -----------------------------------------------------------------------------
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% Cores personalizadas
+\definecolor{fgvblue}{RGB}{0,51,102}
+\definecolor{fgvgold}{RGB}{166,141,74}
+\definecolor{defcolor}{RGB}{180,50,50}
+\definecolor{thmcolor}{RGB}{50,80,150}
+\definecolor{excolor}{RGB}{50,130,70}
+
+\setbeamercolor{palette primary}{bg=fgvblue,fg=white}
+\setbeamercolor{palette secondary}{bg=fgvblue!80,fg=white}
+\setbeamercolor{palette tertiary}{bg=fgvblue!60,fg=white}
+\setbeamercolor{palette quaternary}{bg=fgvblue,fg=white}
+\setbeamercolor{structure}{fg=fgvblue}
+\setbeamercolor{section in toc}{fg=fgvblue}
+\setbeamercolor{title}{fg=fgvblue}
+\setbeamercolor{frametitle}{bg=fgvblue!10,fg=fgvblue}
+\setbeamercolor{block title}{bg=fgvblue,fg=white}
+\setbeamercolor{block body}{bg=fgvblue!5}
+
+% -----------------------------------------------------------------------------
+% AMBIENTES DE TEOREMAS CUSTOMIZADOS (estilo tcolorbox)
+% -----------------------------------------------------------------------------
+\newtcbtheorem[number within=section]{definicao}{Definição}{%
+  enhanced, arc=0mm, outer arc=0mm, boxrule=0mm,
+  toprule=1.5mm, bottomrule=0mm, left=2mm, right=2mm,
+  titlerule=0mm, toptitle=1mm, bottomtitle=1mm, top=1mm,
+  colframe=defcolor!40, colback=defcolor!8, coltitle=defcolor!80!black,
+  fonttitle=\bfseries\small, fontupper=\small,
+  separator sign none
+}{def}
+
+\newtcbtheorem[number within=section]{teorema}{Teorema}{%
+  enhanced, arc=0mm, outer arc=0mm, boxrule=0mm,
+  toprule=1.5mm, bottomrule=0mm, left=2mm, right=2mm,
+  titlerule=0mm, toptitle=1mm, bottomtitle=1mm, top=1mm,
+  colframe=thmcolor!40, colback=thmcolor!8, coltitle=thmcolor!80!black,
+  fonttitle=\bfseries\small, fontupper=\small,
+  separator sign none
+}{thm}
+
+\newtcbtheorem[number within=section]{proposicao}{Proposição}{%
+  enhanced, arc=0mm, outer arc=0mm, boxrule=0mm,
+  toprule=1.5mm, bottomrule=0mm, left=2mm, right=2mm,
+  titlerule=0mm, toptitle=1mm, bottomtitle=1mm, top=1mm,
+  colframe=thmcolor!40, colback=thmcolor!8, coltitle=thmcolor!80!black,
+  fonttitle=\bfseries\small, fontupper=\small,
+  separator sign none
+}{prop}
+
+\newtcbtheorem[number within=section]{lema}{Lema}{%
+  enhanced, arc=0mm, outer arc=0mm, boxrule=0mm,
+  toprule=1.5mm, bottomrule=0mm, left=2mm, right=2mm,
+  titlerule=0mm, toptitle=1mm, bottomtitle=1mm, top=1mm,
+  colframe=thmcolor!40, colback=thmcolor!8, coltitle=thmcolor!80!black,
+  fonttitle=\bfseries\small, fontupper=\small,
+  separator sign none
+}{lem}
+
+\newtcbtheorem[number within=section]{exemplo}{Exemplo}{%
+  enhanced, arc=0mm, outer arc=0mm, boxrule=0mm,
+  toprule=1.5mm, bottomrule=0mm, left=2mm, right=2mm,
+  titlerule=0mm, toptitle=1mm, bottomtitle=1mm, top=1mm,
+  colframe=excolor!40, colback=excolor!8, coltitle=excolor!80!black,
+  fonttitle=\bfseries\small, fontupper=\small,
+  separator sign none
+}{ex}
+
+% Ambiente de demonstração
+\newenvironment{dem}{%
+  \par\smallskip\noindent\textit{\color{thmcolor!70!black}Demonstração.}\ 
+}{\hfill$\square$\par\smallskip}
+
+\newenvironment{sol}{%
+  \par\smallskip\noindent\textit{\color{excolor!70!black}Solução.}\ 
+}{\hfill$\square$\par\smallskip}
+
+% -----------------------------------------------------------------------------
+% COMANDOS MATEMÁTICOS
+% -----------------------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\C}{\mathbb{C}}
+
+% -----------------------------------------------------------------------------
+% CONFIGURAÇÕES GERAIS
+% -----------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+
+% -----------------------------------------------------------------------------
+% INFORMAÇÕES DO DOCUMENTO
+% -----------------------------------------------------------------------------
+\title[Cadeias de Ramificação]{\textbf{Cadeias de Ramificação}}
+\subtitle{Processos Estocásticos}
+\author[FGV/EMAp]{%
+  Gabriel Carneiro Nunes da Silva\\
+  Lucas Menezes de Lima\\
+  Rodrigo Severo Araújo\\
+  Vinicius Tavares Mendes dos Santos
+}
+\institute[FGV]{%
+  Fundação Getúlio Vargas\\
+  Escola de Matemática Aplicada
+}
+\date{Dezembro de 2025}
+
+% =============================================================================
+\begin{document}
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% CAPA
+% -----------------------------------------------------------------------------
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% SUMÁRIO
+% -----------------------------------------------------------------------------
+\begin{frame}{Sumário}
+  \tableofcontents
+\end{frame}
+
+% =============================================================================
+\section{Introdução}
+% =============================================================================
+
+\begin{frame}{Motivação Histórica}
+  O estudo da dinâmica das populações é frutífero para a matemática:
+  \begin{itemize}
+    \item Equações diferenciais de Verhulst
+    \item Modelos clássicos de predador-presa (Lotka-Volterra)
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  
+  \textbf{Cadeias de Ramificação:} modelagem da reprodução como processo estocástico.
+  
+  \vspace{0.5cm}
+  
+  \textbf{Origem:} Francis Galton e Henry William Watson estudavam a possível extinção de sobrenomes de aristocratas no Reino Unido.
+\end{frame}
+
+\begin{frame}{Descrição do Modelo}
+  \textbf{Ideia básica:}
+  \begin{itemize}
+    \item Um indivíduo se reproduz assexuadamente e morre logo em seguida
+    \item $\mathbf{p} = (p_0, p_1, p_2, \ldots)$ é a distribuição do tamanho da prole
+    \item $Z_n$ = número de indivíduos na $n$-ésima geração
+    \item Reprodução independente segundo $\mathbf{p}$
+    \item Condição inicial: $Z_0 = 1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Perguntas Fundamentais}
+  \begin{enumerate}
+    \item Qual o número esperado de filhos de cada indivíduo?
+    \item Qual a esperança e a variância de $Z_n$?
+    \item É possível achar a distribuição de $Z_n$?
+    \item Qual a probabilidade de extinção da cadeia?
+    \item Quais as condições para eventual extinção?
+    \item Se a extinção é certa, qual a distribuição do tempo até ela?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Exemplo Motivador}
+  \begin{exemplo}{Distribuição Bernoulli escalada}{}
+    Tome $\mathbf{p} \sim k \cdot \text{Bernoulli}(p)$: cada indivíduo tem $k$ filhos com probabilidade $p$ ou nenhum filho com probabilidade $1-p$.
+  \end{exemplo}
+  
+  \vspace{0.3cm}
+  
+  \textbf{Resultados imediatos:}
+  \begin{itemize}
+    \item Número esperado de filhos: $k \cdot \mathbb{E}(\mathbf{p}) = kp$
+    \item $Z_n | Z_{n-1} \sim k \cdot \text{Binomial}(Z_{n-1}, p)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Motivador -- Esperança e Variância}
+  \textbf{Esperança:}
+  \[
+    \mathbb{E}(Z_n) = kp \cdot \mathbb{E}(Z_{n-1}) \implies \mathbb{E}(Z_n) = (kp)^n
+  \]
+  
+  \textbf{Variância} (pela lei da variância total):
+  \begin{align*}
+    \text{Var}(Z_n) &= \mathbb{E}(\text{Var}(Z_n | Z_{n-1})) + \text{Var}(\mathbb{E}(Z_n | Z_{n-1}))\\
+    &= k^2p(1-p)(kp)^{n-1} + k^2p^2\text{Var}(Z_{n-1})
+  \end{align*}
+  
+  \textbf{Solução:}
+  \[
+    \text{Var}(Z_n) = k^{n+1}p^n(1-p)\left(1 + kp + (kp)^2 + \cdots + (kp)^{n-1}\right)
+  \]
+\end{frame}
+
+\begin{frame}{Reflexões do Exemplo}
+  \textbf{Observações importantes:}
+  \begin{itemize}
+    \item A extinção parece depender apenas da distribuição da prole
+    \item $\mathbb{E}(Z_n)$ e $\text{Var}(Z_n)$ têm o mesmo comportamento assintótico
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  
+  \textbf{Pela desigualdade de Markov:}
+  \[
+    \mathbb{P}(Z_n \geq 1) \leq \mathbb{E}(Z_n) = (kp)^n
+  \]
+  
+  Se $kp < 1$, então $Z_n \xrightarrow{P} 0$ quando $n \to \infty$.
+\end{frame}
+
+% =============================================================================
+\section{Processo de Ramificação}
+% =============================================================================
+
+\begin{frame}{Definição Formal}
+  \begin{definicao}{Processo de Ramificação}{}
+    Um \textbf{processo de ramificação} é definido por:
+    \begin{itemize}
+      \item Um único indivíduo no instante $n = 0$
+      \item Cada indivíduo vive uma unidade de tempo, produz $X$ descendentes e morre
+      \item $\mathbb{P}(X = k) = p_k$ para $k = 0, 1, 2, \ldots$
+      \item Reprodução independente: $X_1, X_2, \ldots, X_n$ i.i.d.
+      \item $Z_n$ = número de indivíduos nascidos no instante $n$
+    \end{itemize}
+  \end{definicao}
+  
+  \vspace{0.3cm}
+  
+  O processo é $\{Z_0, Z_1, Z_2, \ldots\} = \{Z_n : n \in \mathbb{N}\}$.
+\end{frame}
+
+\begin{frame}{Relação de Recorrência}
+  Se $X^{(n)}_i \sim p$ é o número de filhos do indivíduo $i$ da $n$-ésima geração:
+  
+  \[
+    \boxed{Z_{n+1} = \sum_{i=1}^{Z_n} X^{(n)}_i}
+  \]
+  
+  \vspace{0.5cm}
+  
+  \textbf{Interpretação:} A próxima geração é a soma dos filhos de todos os indivíduos da geração atual.
+\end{frame}
+
+\begin{frame}{Valor Esperado de $Z_n$}
+  \begin{proposicao}{Valor Esperado de $Z_n$}{}
+    Seja $(Z_n)$ uma cadeia de ramificação com $\mathbb{E}[X] = \mu$. Então:
+    \[
+      \mathbb{E}(Z_n) = \mu^n
+    \]
+  \end{proposicao}
+\end{frame}
+
+\begin{frame}{Demonstração -- Valor Esperado}
+  \begin{dem}
+    \begin{align*}
+      \mathbb{E}(Z_n) &= \mathbb{E}\left(\sum_{i=1}^{Z_{n-1}} X_i^{(n)}\right)\\[0.3cm]
+      &= \mathbb{E}\left(\mathbb{E}\left(\sum_{i=1}^{Z_{n-1}}X_i^{(n)}\,\middle|\, Z_{n-1}\right)\right)\\[0.3cm]
+      &= \mathbb{E}(Z_{n-1} \cdot \mathbb{E}(X))\\[0.3cm]
+      &= \mathbb{E}(Z_{n-1}) \cdot \mu = \cdots = \mu^n
+    \end{align*}
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Variância de $Z_n$}
+  \begin{proposicao}{Variância de $Z_n$}{}
+    Seja $(Z_n)$ uma cadeia de ramificação com $\mathbb{E}[X] = \mu$ e $\text{Var}(X) = \sigma^2$. Então:
+    \[
+      \text{Var}(Z_n) = 
+      \begin{cases}
+        \sigma^2 n, & \text{se } \mu = 1\\[6pt]
+        \sigma^2 \mu^{n-1}\displaystyle\left(\frac{1-\mu^n}{1-\mu}\right), & \text{se } \mu \neq 1
+      \end{cases}
+    \]
+  \end{proposicao}
+\end{frame}
+
+\begin{frame}{Demonstração -- Variância (Parte 1)}
+  \begin{dem}
+    Usando a lei da variância total. Seja $V_n = \text{Var}(Z_n)$:
+    \[
+      \text{Var}(Z_n) = \mathbb{E}(\text{Var}(Z_n | Z_{n-1})) + \text{Var}(\mathbb{E}(Z_n | Z_{n-1}))
+    \]
+    \[
+      V_n = \mathbb{E}(Z_{n-1} \cdot \sigma^2) + \text{Var}(Z_{n-1} \cdot \mu)
+    \]
+    \[
+      V_n = \mu^{n-1} \cdot \sigma^2 + \mu^2 \cdot V_{n-1}
+    \]
+    
+    Encontramos uma recorrência para $V_n$.
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Demonstração -- Variância (Parte 2)}
+  Resolvendo a recorrência:
+  \begin{align*}
+    V_1 &= \sigma^2\\
+    V_2 &= \mu \sigma^2 (1 + \mu)\\
+    V_3 &= \mu^2 \sigma^2 (1 + \mu + \mu^2)\\
+    &\vdots\\
+    V_n &= \mu^{n-1} \sigma^2 (1 + \mu + \cdots + \mu^{n-1})\\
+    &= \mu^{n-1} \sigma^2 \left(\frac{1 - \mu^n}{1 - \mu}\right) \quad (\mu \neq 1)
+  \end{align*}
+  
+  Se $\mu = 1$: $V_n = \sigma^2 n$.
+\end{frame}
+
+\begin{frame}{Exemplo: Distribuição Geométrica}
+  \begin{exemplo}{}{}
+    Considere $(Z_n)$ com $p = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots)$.
+  \end{exemplo}
+  
+  \textbf{Esperança do número de filhos:}
+  \[
+    \mathbb{E}(X) = \sum_{i=0}^{\infty} \frac{i}{2^{i+1}} = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots = 1
+  \]
+  
+  \textbf{Portanto:} $\mathbb{E}(Z_n) = 1^n = 1$ para todo $n$.
+  
+  \vspace{0.3cm}
+  
+  \textbf{Intuição:} A probabilidade de extinção parece ser 1 (alta chance de ter 0 filhos).
+\end{frame}
+
+\begin{frame}{Exemplos Intuitivos de Extinção}
+  \begin{exemplo}{}{}
+    Casos simples para desenvolver intuição:
+  \end{exemplo}
+  
+  \textbf{Caso 1:} $p_0 = 1$
+  \begin{center}
+    \begin{tikzpicture}[ball/.style={circle,fill=gray,minimum size=5pt,inner sep=0pt}]
+      \node[ball] (n0) at (0,0) {};
+      \node[red] (x) at (1.5,0) {\Large $\times$};
+      \draw (n0) -- (x);
+      \node[above=2pt] at (n0.north) {\small $X_1^{(0)}$};
+    \end{tikzpicture}
+  \end{center}
+  Extinção certa na próxima geração: $p_e = 1$.
+\end{frame}
+
+\begin{frame}{Exemplos Intuitivos de Extinção (cont.)}
+  \textbf{Caso 2:} $p_0 = \frac{1}{100}$, $p_1 = \frac{99}{100}$
+  \begin{center}
+    \begin{tikzpicture}[ball/.style={circle,fill=gray,minimum size=5pt,inner sep=0pt}]
+      \node[ball] (n0) at (0,0) {};
+      \node[ball] (n1) at (1.5,0) {};
+      \node[ball] (n2) at (3,0) {};
+      \node (dots) at (4.5,0) {$\cdots$};
+      \node[red] (end) at (5.5,0) {\Large $\times$};
+      \draw (n0) -- (n1) -- (n2) -- (dots);
+      \node[above=2pt] at (n0.north) {\small $X_1^{(0)}$};
+      \node[above=2pt] at (n1.north) {\small $X_1^{(1)}$};
+      \node[above=2pt] at (n2.north) {\small $X_1^{(2)}$};
+    \end{tikzpicture}
+  \end{center}
+  Extinção eventual: $p_e = 1$.
+  
+  \vspace{0.5cm}
+  
+  \textbf{Caso 3:} $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$, $p_2 = \frac{1}{4}$
+  
+  Veremos que também $p_e = 1$.
+\end{frame}
+
+\begin{frame}{Probabilidade de Extinção -- Notação}
+  \textbf{Pergunta natural:} Como estudar $p_e$ em casos não-triviais?
+  
+  \vspace{0.5cm}
+  
+  \textbf{Notação:}
+  \[
+    p_e = \Pp(\text{Extinção}) = \Pp\left(\bigcup_{n=0}^{\infty} \{Z_n = 0\}\right) = \lim_{n \to \infty} \Pp(Z_n = 0)
+  \]
+  
+  \vspace{0.5cm}
+  
+  Na próxima seção, estudaremos uma ferramenta poderosa: a \textbf{Função Geradora de Probabilidade}.
+\end{frame}
+
+% =============================================================================
+\section{Função Geradora de Probabilidade}
+% =============================================================================
+
+\begin{frame}{Definição da FGP}
+  \begin{definicao}{Função Geradora de Probabilidade}{}
+    Seja $X$ uma v.a. discreta com valores em $\{0, 1, 2, \ldots\}$ e $p_k = P(X=k)$.
+    
+    A \textbf{Função Geradora de Probabilidade} de $X$ é:
+    \[
+      \Pi_X(s) = \sum_{k=0}^{\infty} P(X=k) s^k = \sum_{k=0}^{\infty} p_k s^k = \mathbb{E}[s^X]
+    \]
+    
+    Esta série converge absolutamente para $|s| \leq 1$.
+  \end{definicao}
+\end{frame}
+
+\begin{frame}{Propriedade 1: Probabilidade na Origem}
+  \begin{proposicao}{Probabilidade na origem}{}
+    A FGP avaliada em $s=0$ retorna a probabilidade de $X$ ser zero:
+    \[
+      \Pi_X(0) = p_0 = P(X=0)
+    \]
+  \end{proposicao}
+  
+  \begin{dem}
+    \[
+      \Pi_X(s) = p_0 + p_1 s + p_2 s^2 + \cdots
+    \]
+    \[
+      \Pi_X(0) = p_0 + p_1(0) + p_2(0)^2 + \cdots = p_0
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Propriedade 2: Derivadas na Origem}
+  \begin{proposicao}{Derivadas na origem}{}
+    A $n$-ésima derivada da FGP em $s=0$ recupera a probabilidade $p_n$:
+    \[
+      \frac{d^n \Pi_X}{ds^n} \Bigg|_{s=0} = n! \cdot p_n \quad \implies \quad p_n = \frac{\Pi_X^{(n)}(0)}{n!}
+    \]
+  \end{proposicao}
+  
+  \begin{dem}
+    A FGP é a série de Maclaurin para $\Pi_X(s)$:
+    \[
+      f(s) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} s^n
+    \]
+    Comparando: $p_k = \frac{\Pi_X^{(k)}(0)}{k!}$, logo $\Pi_X^{(k)}(0) = k! \cdot p_k$.
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Propriedade 3: Soma das Probabilidades}
+  \begin{proposicao}{Soma das Probabilidades}{}
+    A FGP avaliada em $s=1$ é sempre igual a 1:
+    \[
+      \Pi_X(1) = 1
+    \]
+  \end{proposicao}
+  
+  \begin{dem}
+    \[
+      \Pi_X(1) = \sum_{k=0}^{\infty} p_k (1)^k = \sum_{k=0}^{\infty} p_k = 1
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Exemplo: FGP da Bernoulli}
+  \begin{exemplo}{}{}
+    Considere $X \sim \text{Bernoulli}(p)$. Calcule a FGP.
+  \end{exemplo}
+  
+  \begin{sol}
+    \begin{align*}
+      \Pi_X(s) &= \mathbb{E}(s^X) = \Pp(X=0) \cdot s^0 + \Pp(X=1) \cdot s^1\\
+      &= (1-p) + ps
+    \end{align*}
+  \end{sol}
+\end{frame}
+
+\begin{frame}{FGP e Processos de Ramificação}
+  A utilidade da FGP decorre de como ela lida com somas de v.a.'s.
+  
+  \vspace{0.5cm}
+  
+  \textbf{Relação fundamental:}
+  \[
+    \boxed{\Pi_{Z_{n+1}}(s) = \Pi_{Z_n}(\Pi_X(s))}
+  \]
+  
+  \vspace{0.5cm}
+  
+  \textbf{Composição de funções!}
+\end{frame}
+
+\begin{frame}{Demonstração da Relação de Composição (Parte 1)}
+  \begin{dem}
+    O número de indivíduos na geração $n+1$ é:
+    \[
+      Z_{n+1} = \sum_{i=1}^{Z_n} X_i
+    \]
+    onde $X_i$ são i.i.d. com FGP $\Pi_X(s)$.
+    
+    \vspace{0.3cm}
+    
+    Pela definição da FGP:
+    \[
+      \Pi_{Z_{n+1}}(s) = \mathbb{E}[s^{Z_{n+1}}] = \mathbb{E}\left[s^{\sum_{i=1}^{Z_n} X_i}\right]
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Demonstração da Relação de Composição (Parte 2)}
+  Usando a Lei da Expectativa Total:
+  \[
+    \Pi_{Z_{n+1}}(s) = \mathbb{E}\left[\mathbb{E}\left[s^{\sum_{i=1}^{Z_n} X_i} \Big| Z_n\right]\right]
+  \]
+  
+  Dado $Z_n = k$, pela independência dos $X_i$:
+  \[
+    \mathbb{E}\left[s^{\sum_{i=1}^{k} X_i}\right] = \prod_{i=1}^{k} \mathbb{E}[s^{X_i}] = (\Pi_X(s))^k
+  \]
+  
+  Portanto:
+  \[
+    \Pi_{Z_{n+1}}(s) = \mathbb{E}\left[(\Pi_X(s))^{Z_n}\right] = \Pi_{Z_n}(\Pi_X(s))
+  \]
+\end{frame}
+
+\begin{frame}{FGP e Probabilidade de Extinção}
+  \textbf{Conexão fundamental:}
+  \[
+    \Pi_{Z_n}(0) = P(Z_n = 0)
+  \]
+  
+  \vspace{0.3cm}
+  
+  \begin{teorema}{}{thm1}
+    A probabilidade de extinção $p_e$ é o limite:
+    \[
+      p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)
+    \]
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Demonstração do Teorema}
+  \begin{dem}
+    Seja $E_n = \{Z_n = 0\}$ (extinção na geração $n$).
+    
+    Se $Z_n = 0$, então $Z_{n+1} = 0$, logo $E_n \subseteq E_{n+1}$ (sequência crescente).
+    
+    \[
+      p_e = P\left(\bigcup_{n=1}^{\infty} E_n\right) = \lim_{n \to \infty} P(E_n) = \lim_{n \to \infty} \Pi_{Z_n}(0)
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Recorrência da Extinção}
+  \begin{teorema}{Recorrência da Extinção}{}
+    Assumindo $Z_0 = 1$, a probabilidade de extinção na geração $n+1$ satisfaz:
+    \[
+      \Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))
+    \]
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Demonstração da Recorrência}
+  \begin{dem}
+    Seja $q_n = P(Z_n = 0) = \Pi_{Z_n}(0)$. Pela Lei da Probabilidade Total:
+    \[
+      q_{n+1} = \sum_{k=0}^{\infty} P(Z_{n+1} = 0 \mid Z_1 = k) \cdot P(Z_1 = k)
+    \]
+    
+    Se $Z_1 = k$, temos $k$ processos independentes. Para extinção total:
+    \[
+      P(Z_{n+1} = 0 \mid Z_1 = k) = (q_n)^k
+    \]
+    
+    Logo:
+    \[
+      q_{n+1} = \sum_{k=0}^{\infty} (q_n)^k \cdot p_k = \Pi_X(q_n)
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Ponto Fixo da Extinção}
+  \begin{teorema}{Ponto Fixo da Extinção}{}
+    A probabilidade de extinção $p_e$ é um ponto fixo da FGP da prole:
+    \[
+      \boxed{p_e = \Pi_X(p_e)}
+    \]
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Demonstração do Ponto Fixo}
+  \begin{dem}
+    Dos resultados anteriores:
+    \begin{enumerate}
+      \item $p_e = \lim_{n \to \infty} \Pi_{Z_n}(0)$
+      \item $\Pi_{Z_{n+1}}(0) = \Pi_X(\Pi_{Z_n}(0))$
+    \end{enumerate}
+    
+    Aplicando o limite em (2):
+    \[
+      \lim_{n \to \infty} \Pi_{Z_{n+1}}(0) = \lim_{n \to \infty} \Pi_X(\Pi_{Z_n}(0))
+    \]
+    
+    Como $\Pi_X$ é contínua (série de potências):
+    \[
+      p_e = \Pi_X\left(\lim_{n \to \infty} \Pi_{Z_n}(0)\right) = \Pi_X(p_e)
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Exemplo: Distribuição Geométrica}
+  \begin{exemplo}{}{}
+    Cadeia com $p = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots)$. Qual $p_e$?
+  \end{exemplo}
+  
+  \begin{sol}
+    \[
+      \Pi_X(s) = \sum_{x=0}^{\infty} \frac{s^x}{2^{x+1}} = \frac{1}{2} + \frac{s}{4} + \frac{s^2}{8} + \cdots = \frac{1}{2-s}
+    \]
+    
+    Resolvendo $\Pi_X(p_e) = p_e$:
+    \[
+      \frac{1}{2-p_e} = p_e \implies (p_e - 1)^2 = 0 \implies p_e = 1
+    \]
+  \end{sol}
+\end{frame}
+
+\begin{frame}{Exemplo: Distribuição Simétrica}
+  \begin{exemplo}{}{}
+    Cadeia com $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{2}$, $p_2 = \frac{1}{4}$. Qual $p_e$?
+  \end{exemplo}
+  
+  \begin{sol}
+    \[
+      \Pi_X(s) = \frac{1}{4} + \frac{1}{2}s + \frac{1}{4}s^2
+    \]
+    
+    Fazendo $\Pi_X(p_e) = p_e$:
+    \[
+      \frac{1}{4} + \frac{1}{2}p_e + \frac{1}{4}p_e^2 = p_e \implies (p_e - 1)^2 = 0 \implies p_e = 1
+    \]
+  \end{sol}
+\end{frame}
+
+\begin{frame}{Propriedade da Média}
+  \begin{proposicao}{Média da Prole}{}
+    A derivada da FGP em $s=1$ é o número esperado de descendentes:
+    \[
+      \Pi_X'(1) = \mathbb{E}[X] = \mu
+    \]
+  \end{proposicao}
+  
+  \begin{dem}
+    \[
+      \Pi_X'(s) = \sum_{k=1}^{\infty} k p_k s^{k-1}
+    \]
+    \[
+      \Pi_X'(1) = \sum_{k=0}^{\infty} k p_k = \mathbb{E}[X]
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Análise Gráfica -- Casos}
+  A inclinação de $\Pi_X(s)$ em $(1,1)$ é $\mu = \mathbb{E}[X]$.
+  
+  A FGP é \textbf{convexa} em $[0,1]$: $\Pi_X''(s) = \sum k(k-1)p_k s^{k-2} \geq 0$.
+  
+  \vspace{0.3cm}
+  
+  \textbf{Três casos:}
+  \begin{itemize}
+    \item \textbf{Supercrítico} ($\mu > 1$): $\Pi_X(s)$ cruza $y=s$ em $p_e \in [0,1)$
+    \item \textbf{Subcrítico} ($\mu < 1$): Único ponto fixo é $s=1$
+    \item \textbf{Crítico} ($\mu = 1$): $y=s$ é tangente em $s=1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Análise Gráfica -- Figura}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.85]
+    \begin{axis}[
+        axis lines=middle,
+        xlabel=$s$, ylabel=$\Pi_X(s)$,
+        xmin=0, xmax=1.15, ymin=0, ymax=1.15,
+        xtick={0, 0.25, 1}, ytick={0, 0.2, 1},
+        xticklabels={0, $p_e$, 1}, yticklabels={0, $p_0$, 1},
+        axis line style={-stealth},
+        width=0.6\textwidth, height=0.5\textwidth,
+        samples=100,
+    ]
+    \addplot[domain=0:1, blue, dashed, thick] {x} node[pos=0.75, anchor=south west, color=blue] {$y=s$};
+    \addplot[domain=0:1.05, red, very thick] {0.2 + 0.8*x^2} node[above left, pos=0.15, color=red] {$\Pi_X(s)$};
+    \fill[black] (axis cs:0.25, 0.25) circle (1.5pt);
+    \fill[black] (axis cs:1, 1) circle (1.5pt);
+    \draw[dashed, gray] (axis cs:0, 0.2) -- (axis cs:0.25, 0.2);
+    \draw[dashed, gray] (axis cs:0.25, 0) -- (axis cs:0.25, 0.25);
+    \addplot[domain=0.7:1.1, black, thin] {1.6*x - 0.6};
+    \node[right, color=blue] at (axis cs:1.02, 1.08) {\small $\mu > 1$};
+    \end{axis}
+    \end{tikzpicture}
+  \end{center}
+  
+  \textbf{Caso supercrítico:} $p_e$ é o menor ponto fixo positivo.
+\end{frame}
+
+\begin{frame}{Teorema Fundamental de Extinção}
+  \begin{teorema}{Condição para Extinção Certa}{}
+    Seja $\mu = \mathbb{E}[X]$ o número esperado de descendentes.
+    \begin{itemize}
+      \item Se $\mu \leq 1$: $p_e = 1$ (assumindo $P(X=1) \neq 1$)
+      \item Se $\mu > 1$: $p_e$ é a única solução em $[0,1)$ de $s = \Pi_X(s)$
+    \end{itemize}
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Exemplo: Caso Supercrítico}
+  \begin{exemplo}{}{}
+    Cadeia com $p_0 = \frac{1}{4}$, $p_1 = \frac{1}{4}$, $p_2 = \frac{1}{2}$. Qual $p_e$?
+  \end{exemplo}
+  
+  \begin{sol}
+    Primeiro: $\mu = \mathbb{E}[X] = 0 \cdot \frac{1}{4} + 1 \cdot \frac{1}{4} + 2 \cdot \frac{1}{2} = \frac{5}{4} > 1$.
+    
+    Logo, $p_e < 1$. A FGP é:
+    \[
+      \Pi_X(s) = \frac{1}{4} + \frac{1}{4}s + \frac{1}{2}s^2
+    \]
+    
+    Resolvendo $\Pi_X(p_e) = p_e$:
+    \[
+      2p_e^2 - 3p_e + 1 = 0 \implies p_e = \frac{1}{2}
+    \]
+  \end{sol}
+\end{frame}
+
+\begin{frame}{Valor Esperado via FGP}
+  \begin{teorema}{}{}
+    Seja $\mu = \mathbb{E}[X]$ e $Z_0 = 1$. O valor esperado na geração $t$ é:
+    \[
+      \mu_t = \mathbb{E}[Z_t] = \mu^t
+    \]
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Demonstração -- Valor Esperado via FGP}
+  \begin{dem}
+    Usando $\Pi_{Z_{t+1}}(s) = \Pi_{Z_t}(\Pi_X(s))$ e derivando (Regra da Cadeia):
+    \[
+      \Pi_{Z_{t+1}}'(s) = \Pi_{Z_t}'(\Pi_X(s)) \cdot \Pi_X'(s)
+    \]
+    
+    Em $s=1$, usando $\Pi_X(1) = 1$ e $\Pi_X'(1) = \mu$:
+    \[
+      \Pi_{Z_{t+1}}'(1) = \Pi_{Z_t}'(1) \cdot \mu
+    \]
+    
+    Como $\mu_t = \Pi_{Z_t}'(1)$:
+    \[
+      \mu_{t+1} = \mu_t \cdot \mu \implies \mu_t = \mu^t
+    \]
+  \end{dem}
+\end{frame}
+
+\begin{frame}{Interpretação do Valor Esperado}
+  \textbf{Comportamento assintótico de $\mathbb{E}[Z_t] = \mu^t$:}
+  
+  \vspace{0.5cm}
+  
+  \begin{itemize}
+    \item $\mu < 1$ (subcrítico): população esperada decai geometricamente $\to 0$
+    \item $\mu > 1$ (supercrítico): população esperada cresce exponencialmente $\to \infty$
+    \item $\mu = 1$ (crítico): população esperada constante $= 1$
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  
+  \textbf{Consistente com a análise de extinção!}
+\end{frame}
+
+% =============================================================================
+\section{Aplicações}
+% =============================================================================
+
+\begin{frame}{Aplicação: Mutação em Populações}
+  \textbf{Problema:} Uma população segue um processo de ramificação. Cada novo indivíduo tem probabilidade $\gamma$ de possuir uma mutação.
+  
+  \vspace{0.5cm}
+  
+  \textbf{Pergunta:} Qual a probabilidade de que essa população contraia a mutação?
+  
+  \vspace{0.5cm}
+  
+  Seja $X$ o total de nascimentos a partir do primeiro indivíduo:
+  \[
+    X = \sum_{i \geq 0} Z_i, \quad Z_0 = 1
+  \]
+\end{frame}
+
+\begin{frame}{FGP do Total de Nascimentos}
+  A FGP de $X$ é:
+  \[
+    \Pi_X(s) = \mathbb{E}(s^X)
+  \]
+  
+  Condicionando em $Z_1 = k$: temos $k$ processos independentes.
+  \[
+    \mathbb{E}(s^X | Z_1 = k) = s \cdot \mathbb{E}(s^X)^k
+  \]
+  
+  Portanto:
+  \[
+    \boxed{\Pi_X(s) = s \cdot f(\Pi_X(s))}
+  \]
+  
+  onde $f(s) = \sum p_k s^k$ é a FGP do número de filhos.
+\end{frame}
+
+\begin{frame}{Caso Particular: $p_0 = 1-p$, $p_2 = p$}
+  A FGP do número de filhos é:
+  \[
+    f(s) = (1-p) + ps^2
+  \]
+  
+  Substituindo em $\Pi_X(s) = s \cdot f(\Pi_X(s))$:
+  \[
+    \Pi_X(s) = s(1-p + p\Pi_X(s)^2)
+  \]
+  
+  Resolvendo a equação quadrática (com $\lim_{s\to 0} \Pi_X(s) = 0$):
+  \[
+    \Pi_X(s) = \frac{1}{2ps}\left(1 - \sqrt{1 - 4ps^2(1-p)}\right)
+  \]
+\end{frame}
+
+\begin{frame}{Expansão em Série de Potências}
+  \begin{lema}{}{}
+    Seja $c_n = \frac{(2n-2)!}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}$ para $n \geq 1$. 
+    
+    Para $x \in (-1,1)$:
+    \[
+      \sum_{n=1}^{\infty} c_n x^n = 1 - \sqrt{1-x}
+    \]
+  \end{lema}
+  
+  (Segue da Fórmula Binomial de Newton)
+\end{frame}
+
+\begin{frame}{Distribuição do Total de Nascimentos}
+  Usando $x = 4ps^2(1-p)$ no Lema:
+  \[
+    \Pi_X(s) = \sum_{n=1}^{\infty} \frac{(2n-2)!}{n!(n-1)!} p^{n-1}(1-p)^n s^{2n-1}
+  \]
+  
+  \vspace{0.3cm}
+  
+  \textbf{Distribuição de $X$:} Para $n \geq 1$,
+  \[
+    \boxed{P(X = 2n-1 | Z_0 = 1) = \frac{(2n-2)!}{n!(n-1)!} p^{n-1}(1-p)^n}
+  \]
+  
+  Observe: $X$ assume apenas valores ímpares!
+\end{frame}
+
+\begin{frame}{Probabilidade da Mutação}
+  Seja $M$ o evento ``mutação aparece'' e $M^c$ seu complemento.
+  
+  \vspace{0.3cm}
+  
+  Se $X = \infty$: $P(M) = 1$.
+  
+  \vspace{0.3cm}
+  
+  Se $X < \infty$ (extinção):
+  \[
+    P(M^c) = \sum_{k=1}^{\infty} (1-\gamma)^{k-1} P(X = k)
+  \]
+  
+  (Nenhum dos $k$ indivíduos tem a mutação, exceto possivelmente o primeiro)
+\end{frame}
+
+\begin{frame}{Cálculo Final}
+  Substituindo a distribuição de $X$:
+  \[
+    P(M^c) = \sum_{k=1}^{\infty} (1-\gamma)^{2k-2} \frac{(2k-2)!}{k!(k-1)!} p^{k-1}(1-p)^k
+  \]
+  
+  Reorganizando e aplicando o Lema:
+  \[
+    P(M^c) = \frac{1}{2p(1-\gamma)^2}\left(1 - \sqrt{1 - 4(1-p)p(1-\gamma)^2}\right)
+  \]
+\end{frame}
+
+\begin{frame}{Resultado Final}
+  \begin{teorema}{Probabilidade de Mutação}{}
+    A probabilidade de que a população contraia a mutação é:
+    \[
+      \boxed{P(M) = 1 - \frac{1}{2p(1-\gamma)^2}\left(1 - \sqrt{1 - 4p(1-p)(1-\gamma)^2}\right)}
+    \]
+  \end{teorema}
+  
+  \vspace{0.5cm}
+  
+  \textbf{Casos especiais:}
+  \begin{itemize}
+    \item $\gamma \to 1$: $P(M) \to 1$ (mutação certa)
+    \item $\gamma \to 0$: $P(M) \to 0$ (sem mutação)
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\section*{Referências}
+% =============================================================================
+
+\begin{frame}{Resumo}
+  \textbf{O que estudamos:}
+  \begin{itemize}
+    \item Definição e propriedades de processos de ramificação
+    \item Esperança e variância de $Z_n$
+    \item Função Geradora de Probabilidade (FGP)
+    \item Probabilidade de extinção como ponto fixo
+    \item Condições para extinção certa ($\mu \leq 1$)
+    \item Aplicação: mutações em populações
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  
+  \textbf{Resultado central:}
+  \[
+    p_e = \Pi_X(p_e) \quad \text{e} \quad \mathbb{E}[Z_n] = \mu^n
+  \]
+\end{frame}
+
+\begin{frame}
+  \centering
+  \Huge\textbf{Obrigado!}
+  
+  \vspace{1cm}
+    
+  \normalsize
+  FGV/EMAp -- Dezembro de 2025
+\end{frame}
+
+% =============================================================================
+\end{document}
+% =============================================================================

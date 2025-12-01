@@ -2,9 +2,13 @@
 
 Uma das perguntas feitas na introdução foi sobre a distribuição do tempo de extinção de uma cadeia de ramificação. Para ser mais específicos, nos referimos à variável aleatória
 
-\[\tau = \min{n \in \mathbb{Z} : Z_n = 0}\] dessa forma, $\tau = t \iff Z_t = 0, Z_{t-1} >0$. É útil achar a distribuição dessa variável porque ela pode ser útil quando a extinção é algo quisto pelo modelo, por exemplo, quando a cadeia de ramificação representa o número de indivíduos infectados numa população. Pela equivalência acima, sabemos que \[\Pp(\tau = t) = \Pp(Z_t = 0, Z_{t-1} > 0)\]. E pela lei da probabilidade total, temos \[\Pp(Z_t = 0, Z_{t-1} >0) = \Pp(Z_t = 0) - \Pp(Z_t = 0, Z_{t-1} =0)\]
+\[
+\tau = \min \{ n \in \mathbb{Z} : Z_n = 0 \}
+\] 
 
-No lado direito da igualdade acima, sabemos que $\Pp(Z_t = 0, Z_{t-1})$ é redundante e igual a $\Pp(Z_{t-1} = 0$. Pela proposição \textbf{3.1.1}, temos que $\Pp(Z_t = 0) = \Pi_{Z_t}(0) = p_{t,0}$. Assim, concluímos que a distribuição do tempo de extinção obedece à equação:
+dessa forma, $\tau = t \iff Z_t = 0, Z_{t-1} >0$. É útil achar a distribuição dessa variável porque ela pode ser útil quando a extinção é algo quisto pelo modelo, por exemplo, quando a cadeia de ramificação representa o número de indivíduos infectados numa população. Pela equivalência acima, sabemos que \[\Pp(\tau = t) = \Pp(Z_t = 0, Z_{t-1} > 0)\]. E pela lei da probabilidade total, temos \[\Pp(Z_t = 0, Z_{t-1} >0) = \Pp(Z_t = 0) - \Pp(Z_t = 0, Z_{t-1} =0)\]
+
+No lado direito da igualdade acima, sabemos que $\Pp(Z_t = 0, Z_{t-1})$ é redundante e igual a $\Pp(Z_{t-1} = 0)$. Pela proposição \textbf{3.1.1}, temos que $\Pp(Z_t = 0) = \Pi_{Z_t}(0) = p_{t,0}$. Assim, concluímos que a distribuição do tempo de extinção obedece à equação:
 
 \[\Pp(\tau = t) = p_{t,0} - p_{t-1,0}\]
 
@@ -14,7 +18,7 @@ Num geral, como já visto, achar os valores de $p_{t,0}$ pode ser uma tarefa com
 
 Um outro problema é calcular os momentos de $\tau$. O principal resultado sobre tal assunto é o seguinte:
 
-\begin{proposicao}
+\begin{proposicao}{}{}
 
 
 \[\mathbb{E}(\tau) = \begin{cases} 
@@ -22,6 +26,7 @@ Um outro problema é calcular os momentos de $\tau$. O principal resultado sobre
 	\text{ infinita }, \text{ se $\mathbb{E}(Z_1)$ = 1 e Var($Z_1$) é finita}; \\
 	\text{ infinita }, \text{ se $\mathbb{E}(Z_1)$ > 1}; \\
 		\end{cases}
+\]
 \end{proposicao}
 
 A demonstração do afirmado exige alguns conhecimentos sobre o comportamento assintótico de $Z_n$, resultados um pouco mais técnicos que decidimos não incluir no texto.
