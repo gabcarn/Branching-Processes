@@ -71,7 +71,7 @@ provido do fato de que $\lim_{s \to 0)\Pi_{X}(s) = 0$, podemos resolver a equaç
 Queremos agora encontrar uma expansão em série de potências para $\Pi_X$. Usando a Fórmula de Newton, temos o
 seguinte resultado.
 
-\begin{lema}{Lema}{} Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
+\begin{lema}{}{} Seja $c_n = \frac{(2n - 2)}{2^{2n-1}n!(n-1)!} = \frac{1}{n}2^{1-2n}\binom{2n-2}{n-1}, / n \geq 1 $. Então para
 $x \in (-1,1)$,
 
 \[
@@ -200,7 +200,7 @@ Usando as aproximações de $f_1$ e $f_2$ conseguimos para $p < \frac{1}{2}$ fix
 f(N, \gamma, p) \approx (\frac{(1 + 2\gamma)}{2p}(1 - (1 - 2p)(1 + \frac{4p(1-p)}{(1- 2p)^2}\gamma)))^N
 \]
 \[
-= (\frac{(1+2\gamma)}{2p}(2p - \frac{4p(1-p)}{(1-2p)}\gamma))^n
+= (\frac{(1+2\gamma)}{2p}(2p - \frac{4p(1-p)}{(1-2p)}\gamma))^N
 \]
 \[
 = ((1 + 2\gamma)(1 - \frac{2(1-p)}{(1-2p)}\gamma))^N.
@@ -218,7 +218,7 @@ Logo,
 f(N, \gamma, p) \approx (1 - \frac{2p}{1-2p})^N, \ \text{para} \ p < \frac{1}{2}.
 \]
 
-Podemos agora limitar essa aproximação utilizando o fato $e^{-x} > 1-x \forall x > 0$, ou seja,
+Podemos agora limitar essa aproximação utilizando o fato $e^{-x} > 1-x ,\ \forall x > 0$, ou seja,
 
 \[
 f(N, \gamma, p) \approx (1- \frac{2p}{1-2p}\gamma)^N < exp(-\frac{2p}{1-2p}N\gamma).
@@ -245,7 +245,7 @@ Encontramos então o seguinte resultado,
 f(N, \gamma, p) \approx (\frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p-1)}\gamma))^N, \ \text{para} \ p > \frac{1}{2}.
 \]
 
-Usando novamente o fato $e^{-x} > 1 - x \forall x > 0$, obtemos um limitante para essa aproximação,
+Usando novamente o fato $e^{-x} > 1 - x ,\ \forall x > 0$, obtemos um limitante para essa aproximação,
 
 \[
 f(N, \gamma, p) \approx (\frac{(1-p)}{p}(1 - \frac{2(1-p)}{(2p-1)}\gamma))^N < (\frac{1-p}{p})^N exp(-\frac{2(1-p)}{(2p-1)}N\gamma),
